@@ -1,0 +1,59 @@
+<style lang="less">
+  .userinfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .userinfo-avatar {
+    width: 80rpx;
+    height: 80rpx;
+    border-radius: 50%;
+  }
+
+  .userinfo-nickname {
+    color: #aaa;
+  }
+</style>
+<template>
+  <web-view src="{{interacts[1]}}"></web-view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Interact_h5 extends wepy.page {
+    config = {
+      navigationBarTitleText: 'h5互动'
+    }
+    components = {
+    }
+
+    mixins = []
+
+    data = {
+      interacts:[
+        'https://m.jd.com/',
+        'https://m.taobao.com/'
+      ]
+    }
+
+    computed = {
+
+    }
+
+    methods = {
+
+    }
+
+    events = {
+
+    }
+
+    onLoad() {
+
+
+
+    }
+  }
+</script>

@@ -1,0 +1,207 @@
+<style lang="less">
+  .userinfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .userinfo-avatar {
+    width: 80rpx;
+    height: 80rpx;
+    border-radius: 50%;
+  }
+
+  .userinfo-nickname {
+    color: #aaa;
+  }
+</style>
+<template>
+  <rich-text nodes="{{nodes}}" bindtap="tap"></rich-text>
+
+  <view class="page">
+    <view class="page__hd">
+      <view class="userinfo">
+        <image class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"/>
+        <view class="userinfo-nickname">{{ userInfo.nickName }}</view>
+      </view>
+    </view>
+    <view class="page__bd">
+
+      <button  class="weui-btn" type="primary" @touchstart="touchdown" @touchend="touchup">{{btn_info}}</button>
+      <view class="weui-panel">
+        <block wx:for="{{voices}}" wx:for-index="index" wx:for-item="voice" wx:key="key">
+          <view class="weui-panel__bd" @tap="playRecord({{index}})">
+            <view class="weui-media-box weui-media-box_text">
+              <view class="weui-media-box__title weui-media-box__title_in-text">音频{{index+1}}</view>
+              <view class="weui-media-box__desc">{{voice.filePath}}</view>
+              <view class="weui-media-box__info">
+                <view class="weui-media-box__info__meta">录音大小：{{voice.size}}B</view>
+                <view class="weui-media-box__info__meta">时间:{{voice.createTime}}</view>
+              </view>
+            </view>
+          </view>
+        </block>
+
+      </view>
+    </view>
+    <button  class="weui-btn" type="primary" @tap="play" >播放</button>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Interact extends wepy.page {
+    config = {
+      navigationBarTitleText: 'record'
+    }
+    components = {
+    }
+
+    mixins = []
+
+    data = {
+      userInfo: {
+        nickName: '加载中...'
+      },
+      btn_info:'长按录音',
+      voices:[],
+      recorderManager:{},
+      nodes: [{
+        name: 'div',
+        attrs: {
+          class: 'div_class',
+          style: 'line-height: 60px; color: red;'
+        },
+        children: [{
+          type: 'text',
+          text: 'Hello&nbsp;World!'
+        }]
+      }]
+    }
+
+    computed = {
+
+    }
+
+    methods = {
+
+      play(){
+        wx.playVoice({
+          filePath: 'http://sc1.111ttt.cn:8282/2017/1/05m/09/298092039442.m4a?#.mp3',
+          success: function () {
+            wx.showToast({
+              title: '播放结束',
+              icon: 'success',
+              duration: 1000
+            })
+          },
+          fail:function (e) {
+            console.log(e)
+          }
+        })
+      },
+      touchdown(){
+        console.log('手指按下');
+        wx.playVoice({
+          filePath: filePath,
+          success: function () {
+            wx.showToast({
+              title: '播放结束',
+              icon: 'success',
+              duration: 1000
+            })
+          },
+          fail:function (e) {
+            console.log(e)
+          }
+        })
+        let that = this;
+        this.btn_info = '录音中';
+        wx.startRecord({
+          success: function(res) {
+            var tempFilePath = res.tempFilePath;
+            console.log(res);
+            wx.getFileInfo({
+              filePath:tempFilePath,
+              success(result) {
+                let voice = {
+                  filePath:tempFilePath,
+                  size:result.size,
+                  createTime:new Date()
+                }
+                console.log(result)
+                that.voices.push(voice);
+                that.$apply();
+              }
+            })
+
+//
+            console.log(tempFilePath)
+          },
+          fail: function(res) {
+            console.log('录音失败')
+          }
+        })
+      },
+
+      touchup(){
+        console.log('手指抬起');
+        this.btn_info = '长按录音';
+        wx.stopRecord()
+      },
+      playRecord(index,e){
+          console.log(index)
+        let that = this;
+        let filePath = this.voices[index].filePath;
+        console.log(filePath)
+
+        wx.playVoice({
+          filePath: filePath,
+          success: function () {
+            wx.showToast({
+                  title: '播放 结束',
+                  icon: 'success',
+                  duration: 1000
+            })
+          },
+          fail:function (e) {
+            console.log(e)
+          }
+        })
+      }
+    }
+
+    events = {
+
+    }
+
+    onLoad() {
+
+      wx.playBackgroundAudio({
+        dataUrl: 'http://sc1.111ttt.cn:8282/2017/1/05m/09/298092039442.m4a?#.mp3',
+        title: '',
+        coverImgUrl: '',
+        fail:function (e) {
+          console.log()
+        }
+      })
+      let self = this
+      this.$parent.getUserInfo(function (userInfo) {
+        if (userInfo) {
+          self.userInfo = userInfo
+        }
+
+        self.normalTitle = '标题已被修改'
+
+        self.setTimeoutTitle = '标题三秒后会被修改'
+        setTimeout(() => {
+          self.setTimeoutTitle = '到三秒了'
+          self.$apply()
+        }, 3000)
+
+        self.$apply()
+      })
+    }
+  }
+</script>

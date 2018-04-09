@@ -1,0 +1,41 @@
+<style type="less">
+.teamItem {
+
+}
+
+
+</style>
+<template>
+  <view class="weui-panel">
+    <!--<view class="weui-panel__hd">文字列表附来源</view>-->
+    <view class="weui-panel__bd">
+      <view class="weui-media-box weui-media-box_text">
+        <view class="weui-media-box__title weui-media-box__title_in-text">{{team.name}}</view>
+        <view class="weui-media-box__desc">{{team.desc}}</view>
+        <view class="weui-media-box__info">
+          <view class="weui-media-box__info__meta">创建时间：{{team.updated_at}}</view>
+          <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">已加入{{team.joined}}人</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+</template>
+<script>
+  import wepy from 'wepy'
+
+  export default class TeamItem extends wepy.component {
+    props = {
+      team: {}
+    }
+    data = {
+    }
+    methods = {
+//      tapTeam(){
+//          console.log('teamItem is click');
+//          console.log(this.team)
+//          this.$emit('teamItemFn',this.team.id);
+//      }
+    }
+  }
+</script>

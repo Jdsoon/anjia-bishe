@@ -1,0 +1,114 @@
+<style lang="less">
+  .container{
+    width: 100%;
+    height: 1000rpx;
+
+  }
+  .userinfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .userinfo-avatar {
+    width: 80rpx;
+    height: 80rpx;
+    border-radius: 50%;
+  }
+
+  .userinfo-nickname {
+    color: #aaa;
+  }
+</style>
+<template>
+  <view class="container" style="background: url({{loadingImg}}) no-repeat;background-size:100% 100%;">
+    <rich-text nodes="{{nodes}}" bindtap="tap"></rich-text>
+
+    <view class="page">
+      <view class="page__hd">
+        <view class="userinfo">
+          <image class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"/>
+          <view class="userinfo-nickname">{{ userInfo.nickName }}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import loading from '../service/loading'
+  import user from '../service/user'
+
+
+  export default class Welcome extends wepy.page {
+    config = {
+      navigationBarTitleText: ''
+    }
+    components = {
+
+    }
+
+    mixins = []
+
+    data = {
+      userInfo: {
+        nickName: '加载中...'
+      },
+      loadingImg:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515664586722&di=fae68bd0c4b84f4f9adcc28ccc740bf8&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201405%2F10%2F20140510221440_zvkHi.jpeg'
+    }
+
+    computed = {
+
+    }
+
+    methods = {
+
+    }
+
+    events = {
+
+    }
+
+    async onLoad() {
+
+
+      // let self = this
+      // this.$parent.getUserInfo(function (userInfo) {
+      //   if (userInfo) {
+      //     self.userInfo = userInfo
+      //   }
+      //
+      //   self.normalTitle = '标题已被修改'
+      //
+      //   self.setTimeoutTitle = '标题三秒后会被修改'
+      //   setTimeout(() => {
+      //     self.setTimeoutTitle = '到三秒了'
+      //     self.$apply()
+      //   }, 3000)
+      //
+      //   self.$apply()
+      // })
+
+      setTimeout(function (){
+        console.log('toProjects')
+        wepy.switchTab({
+          url: '/pages/projects'
+        })
+      }, 3000)
+
+      // const loadingInfo = await loading.getLoadingInfo();
+
+
+      // this.loadingImg = loadingInfo ? loadingInfo.loadingImg;
+
+      //
+      // if(!await user.checkSession()){
+      //    const userInfo = await user.login();
+      //    this.userInfo = userInfo;
+      //    this.$apply();
+      // }
+    }
+  }
+</script>
