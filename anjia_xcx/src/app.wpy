@@ -23,6 +23,7 @@ export default class extends wepy.app {
       'pages/projects',
       'pages/index',
       'pages/projectDetail',
+      'pages/houseDetail',
       'pages/interact',
       'pages/interact_h5'
     ],

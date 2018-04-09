@@ -1,17 +1,21 @@
 // ENV
-const env = 'production' // 'development' or 'production'
+const env = 'development' // 'development' or 'production'
 
 // WXAPP VERSION
 const version = 1.0
 
 // development and production host
 const hosts = {
-  development: 'http://localhost:3020',
+  development: 'http://localhost:3000',
   // production: 'https://xcx.hagongyi.com/api/v1'
   production: 'https://yyf.xcxhdj.hagongyi.com/api/v2'
 }
 
 const api = {
+  houses:{
+    method: 'GET',
+    url: '/houses'
+  },
   getLoadingInfo:{
     method: 'GET',
     url: '/loading'

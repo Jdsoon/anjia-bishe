@@ -1,108 +1,9 @@
-<style lang="less">
-  /*@import "style/index.wxss";*/
-  page{
-    background: linear-gradient(to top, rgba(233,236,240,0.4) ,rgb(239,241,245) 30%,rgba(239,241,245,0.3) 80%);
-    background-attachment:fixed;
-  }
-  .header{
-    font-size: 60rpx;
-    color: #44aaff;
-    margin-left: 30rpx;
-  }
-  .tab_bd{
-    width:750rpx;
-    display:flex;
-    flex-direction:row;
-    z-index: 999;
-    height: 60rpx;
-  }
-  .tab_bd--scroll{
-    display:block;
-    white-space:nowrap;
-  }
-  .tab_item{
-    flex:1;
-    display:inline-block;
-    padding:0 10px;
-    line-height: 60rpx;
-    box-sizing:border-box;
 
-    overflow:hidden;
-    text-align:center;
-  }
-  .tab_tittle{
-    font-size: 30rpx;
-    height:  60rpx;
-    color: rgb(162,170,181);
-
-
-  }
-
-  .tab_selected{
-    color: #44aaff;
-    border-bottom:5rpx solid #44aaff;
-    box-sizing: border-box;
-  }
-
-  .projects_list{
-    width: 700rpx;
-    margin: 0 auto;
-    background-color: beige;
-
-  }
-
-  .project{
-    position: relative;
-    width: 320rpx;
-    height: 320rpx;
-    float: left;
-    margin-top: 30rpx;
-    margin-left: 15rpx;
-    margin-right: 15rpx;
-    background-color: #fff;
-    border-radius: 30rpx;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-shadow: 0rpx 4rpx 20rpx -6rpx #CCCCCC;
-  }
-  .project_img{
-    margin-top: 30rpx;
-  }
-  .project_img image{
-    border-radius: 50%;
-  }
-  .project_tag view{
-    font-size: 30rpx;
-    background-color: rgb(168,215,255);
-    color: white;
-    height: 50rpx;
-    line-height: 50rpx;
-    width: 130rpx;
-    margin: 10rpx 10rpx;
-    border-radius: 10rpx;
-    text-align: center;
-    float: left;
-  }
-  .point{
-    width: 40rpx;
-    height: 60rpx;
-    line-height: 20rpx;
-    font-size: 80rpx;
-    position: absolute;
-    right: 15rpx;
-    top: 0;
-    word-wrap: break-word;
-    overflow: hidden;
-    color: rgb(162,170,181);
-
-  }
-</style>
 <template>
 
   <view>
     <view class="header">
-      我们的行动
+      凤栖梧
     </view>
     <scroll-view class="tab_bd tab_bd--scroll" scroll-x="true" style="height: 70rpx">
       <repeat for="{{list}}" index="index" item="item" key="id" >
@@ -112,24 +13,106 @@
       </repeat>
     </scroll-view>
 
-    <view class="projects_list">
-      <repeat for="{{projects}}" index="index" item="item" key="id" >
-        <view class="project" @tap="toProjectDetail({{item.id}})">
-          <view class="project_img">
-            <image src="{{item.imgUrl}}" style="width: 130rpx;height: 130rpx"></image>
-          </view>
-          <view class="project_name">{{item.name}}</view>
-          <view class="project_tag">
-            <view>{{item.tag[0]}}</view>
-            <view>{{item.tag[1]}}</view>
-          </view>
-          <view class="point">···</view>
-        </view>
+    <swiper class="swipers" duration="400" current="{{  selectedId  }}" @change="currentChange">
+      <repeat for="{{  list  }}">
+        <swiper-item class="swiper-item">
+          <scroll-view scroll-x="false" scroll-y="true" class='scroll-views'>
+            <view class="projects_list">
+              <repeat for="{{housesList[selectedId]}}" index="index" item="item" key="id" >
+                <view class="project" @tap="toProjectDetail({{item.houseId}})">
+                  <view class="project_img">
+                    <image src="http://owhah4u2f.bkt.clouddn.com/images/houses/{{item.houseId}}/1.jpg" style="width: 130rpx;height: 130rpx"></image>
+                  </view>
+                  <view class="project_name">{{item.houseName}}</view>
+                  <view class="project_tag">
+                    <view>{{item.areaName}}</view>
+                    <view>{{item.aspect}}</view>
+                  </view>
+                  <view class="point">···</view>
+                </view>
+              </repeat>
+            </view>
+          </scroll-view>
+        </swiper-item>
+
       </repeat>
-
-
-
-    </view>
+        <!--<swiper-item class="swiper-item">-->
+          <!--<scroll-view scroll-x="false" scroll-y="true" class='scroll-views'>-->
+            <!--<view class="projects_list">-->
+              <!--<repeat for="{{housesList}}" index="index" item="item" key="id" >-->
+                <!--<view class="project" @tap="toProjectDetail({{item.houseId}})">-->
+                  <!--<view class="project_img">-->
+                    <!--<image src="http://owhah4u2f.bkt.clouddn.com/images/houses/{{item.houseId}}/1.jpg" style="width: 130rpx;height: 130rpx"></image>-->
+                  <!--</view>-->
+                  <!--<view class="project_name">{{item.houseName}}</view>-->
+                  <!--<view class="project_tag">-->
+                    <!--<view>{{item.areaName}}</view>-->
+                    <!--<view>{{item.aspect}}</view>-->
+                  <!--</view>-->
+                  <!--<view class="point">···</view>-->
+                <!--</view>-->
+              <!--</repeat>-->
+            <!--</view>-->
+          <!--</scroll-view>-->
+        <!--</swiper-item>-->
+        <!--<swiper-item class="swiper-item">-->
+          <!--<scroll-view scroll-x="false" scroll-y="true" class='scroll-views'>-->
+            <!--<view class="projects_list">-->
+              <!--<repeat for="{{housesList}}" index="index" item="item" key="id" >-->
+                <!--<view class="project" @tap="toProjectDetail({{item.houseId}})">-->
+                  <!--<view class="project_img">-->
+                    <!--<image src="http://owhah4u2f.bkt.clouddn.com/images/houses/{{item.houseId}}/1.jpg" style="width: 130rpx;height: 130rpx"></image>-->
+                  <!--</view>-->
+                  <!--<view class="project_name">{{item.houseName}}</view>-->
+                  <!--<view class="project_tag">-->
+                    <!--<view>{{item.areaName}}</view>-->
+                    <!--<view>{{item.aspect}}</view>-->
+                  <!--</view>-->
+                  <!--<view class="point">···</view>-->
+                <!--</view>-->
+              <!--</repeat>-->
+            <!--</view>-->
+          <!--</scroll-view>-->
+        <!--</swiper-item>-->
+        <!--<swiper-item class="swiper-item">-->
+          <!--<scroll-view scroll-x="false" scroll-y="true" class='scroll-views'>-->
+            <!--<view class="projects_list">-->
+              <!--<repeat for="{{housesList}}" index="index" item="item" key="id" >-->
+                <!--<view class="project" @tap="toProjectDetail({{item.houseId}})">-->
+                  <!--<view class="project_img">-->
+                    <!--<image src="http://owhah4u2f.bkt.clouddn.com/images/houses/{{item.houseId}}/1.jpg" style="width: 130rpx;height: 130rpx"></image>-->
+                  <!--</view>-->
+                  <!--<view class="project_name">{{item.houseName}}</view>-->
+                  <!--<view class="project_tag">-->
+                    <!--<view>{{item.areaName}}</view>-->
+                    <!--<view>{{item.aspect}}</view>-->
+                  <!--</view>-->
+                  <!--<view class="point">···</view>-->
+                <!--</view>-->
+              <!--</repeat>-->
+            <!--</view>-->
+          <!--</scroll-view>-->
+        <!--</swiper-item>-->
+        <!--<swiper-item class="swiper-item">-->
+          <!--<scroll-view scroll-x="false" scroll-y="true" class='scroll-views'>-->
+            <!--<view class="projects_list">-->
+              <!--<repeat for="{{housesList}}" index="index" item="item" key="id" >-->
+                <!--<view class="project" @tap="toProjectDetail({{item.houseId}})">-->
+                  <!--<view class="project_img">-->
+                    <!--<image src="http://owhah4u2f.bkt.clouddn.com/images/houses/{{item.houseId}}/1.jpg" style="width: 130rpx;height: 130rpx"></image>-->
+                  <!--</view>-->
+                  <!--<view class="project_name">{{item.houseName}}</view>-->
+                  <!--<view class="project_tag">-->
+                    <!--<view>{{item.areaName}}</view>-->
+                    <!--<view>{{item.aspect}}</view>-->
+                  <!--</view>-->
+                  <!--<view class="point">···</view>-->
+                <!--</view>-->
+              <!--</repeat>-->
+            <!--</view>-->
+          <!--</scroll-view>-->
+        <!--</swiper-item>-->
+    </swiper>
   </view>
 
 
@@ -158,10 +141,11 @@
 <script>
   import wepy from 'wepy'
   import project from '../service/project'
+  import houses from '../service/houses'
 
   export default class Projects extends wepy.page {
     config = {
-      navigationBarTitleText: '壹基金',
+      navigationBarTitleText: '毕业设计',
       navigationBarBackgroundColor: '#fafbfc'
     }
     components = {
@@ -217,22 +201,30 @@
 
       list: [{
         id: '0',
-        title: '全部'
+        title: '精选',
+        label: ''
       }, {
         id: '1',
-        title: '灾害救助'
+        title: '拿铁4.0后现代风格装饰',
+        label: '拿铁'
       }, {
         id: '2',
-        title: '儿童关怀与发展'
+        title: '粉色回忆少女房',
+        label: '少女'
       }, {
         id: '3',
-        title: '公益支持与创新'
+        title: '哥特风古典',
+        label: '古典'
       }, {
         id: '4',
-        title: '海洋天堂'
+        title: '日式极简主义',
+        label: '极简'
       }],
 
-      selectedId: 0
+      selectedId: 0,
+
+      housesList:[],
+      currentHouseList:[]
     }
 
     computed = {
@@ -242,6 +234,8 @@
     methods = {
       tapItem(itemId,e){
         this.selectedId =itemId;
+          console.log(itemId);
+          this.housesList[e.detail.current] = [2,2]
         this.$apply();
       },
 
@@ -253,6 +247,14 @@
         // wepy.navigateTo({
         //   url: '/pages/projectDetail?projectId='+projectId
         // });
+      },
+
+      currentChange(e){
+          this.selectedId = e.detail.current
+          if(this.selectedId > 0){
+              this.housesList[e.detail.current] = this.filter(this.list[e.detail.current].label)
+          }
+          this.$apply()
       }
     }
 
@@ -262,9 +264,140 @@
 
     async onLoad(params, data) {
       console.log(data)
+
+      const housesInfo = await houses.getHouses()
+      this.currentHouseList = housesInfo.data ? housesInfo.data : ''
+      this.housesList[0]  = this.currentHouseList
+
       // const projects = await project.getAllProjects();
       // console.log(projects);
-      // this.$apply();
+      this.$apply();
+    }
+
+    filter(args){
+        if(args){
+            var new_houses=this.currentHouseList.filter(function (house,index) {
+                if(house.houseName.indexOf(args)!=-1){
+                    return house;
+                }
+            });
+            return new_houses;
+        }else{
+            return houses;
+        }
     }
   }
 </script>
+<style lang="less">
+  /*@import "style/index.wxss";*/
+  page{
+    background: linear-gradient(to top, rgba(233,236,240,0.4) ,rgb(239,241,245) 30%,rgba(239,241,245,0.3) 80%);
+    background-attachment:fixed;
+  }
+  .header{
+    font-size: 60rpx;
+    color: #44aaff;
+    margin-left: 30rpx;
+  }
+  .tab_bd{
+    width:750rpx;
+    display:flex;
+    flex-direction:row;
+    z-index: 999;
+    height: 60rpx;
+  }
+  .tab_bd--scroll{
+    display:block;
+    white-space:nowrap;
+  }
+  .tab_item{
+    flex:1;
+    display:inline-block;
+    padding:0 10px;
+    line-height: 60rpx;
+    box-sizing:border-box;
+
+    overflow:hidden;
+    text-align:center;
+  }
+  .tab_tittle{
+    font-size: 30rpx;
+    height:  60rpx;
+    color: rgb(162,170,181);
+
+
+  }
+
+  .tab_selected{
+    color: #44aaff;
+    border-bottom:5rpx solid #44aaff;
+    box-sizing: border-box;
+  }
+  .swipers{
+    min-height: 1000rpx;
+  }
+  .scroll-views{
+    height: 100%;
+  }
+
+  .projects_list{
+    width: 700rpx;
+    margin: 0 auto;
+    background-color: beige;
+
+  }
+
+  .project{
+    position: relative;
+    width: 320rpx;
+    height: 320rpx;
+    float: left;
+    margin-top: 30rpx;
+    margin-left: 15rpx;
+    margin-right: 15rpx;
+    background-color: #fff;
+    border-radius: 30rpx;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0rpx 4rpx 20rpx -6rpx #CCCCCC;
+    .project_name{
+      width: 150rpx;
+      font-size: 30rpx;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  }
+  .project_img{
+    margin-top: 30rpx;
+  }
+  .project_img image{
+    border-radius: 50%;
+  }
+  .project_tag view{
+    font-size: 30rpx;
+    background-color: rgb(168,215,255);
+    color: white;
+    height: 50rpx;
+    line-height: 50rpx;
+    width: 130rpx;
+    margin: 10rpx 10rpx;
+    border-radius: 10rpx;
+    text-align: center;
+    float: left;
+    overflow: hidden;
+  }
+  .point{
+    width: 40rpx;
+    height: 60rpx;
+    line-height: 20rpx;
+    font-size: 80rpx;
+    position: absolute;
+    right: 15rpx;
+    top: 0;
+    word-wrap: break-word;
+    overflow: hidden;
+    color: rgb(162,170,181);
+
+  }
+</style>
