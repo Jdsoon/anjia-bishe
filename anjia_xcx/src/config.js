@@ -14,7 +14,8 @@ const hosts = {
 const api = {
   houses:{
     method: 'GET',
-    url: '/houses'
+    url: '/houses',
+
   },
   getLoadingInfo:{
     method: 'GET',

@@ -1,26 +1,23 @@
 <style lang="less">
+    swiper{
+        width: 750rpx;
+        height: 400rpx;
+        image{
+            width: 100%;
+        }
+    }
 </style>
 <template>
-  <view class="section tc">
-    <video class="myVideo" id="myVideo" controls poster="http://owhah4u2f.bkt.clouddn.com/%E5%A3%B9%E5%9F%BA%E9%87%912.png" src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"   enable-danmu danmu-btn controls></video>
-    <!--<video class="myVideo" id="myVideo" src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"   enable-danmu danmu-btn controls></video>-->
-    <!--<view class="btn-area">-->
-      <!--<input bindblur="bindInputBlur"/>-->
-      <!--<button bindtap="bindSendDanmu">发送弹幕</button>-->
-    <!--</view>-->
-  </view>
-  <!--<view class="weui-panel__hd">文字列表附来源</view>-->
-  <view class="weui-panel__bd">
-    <view class="weui-media-box weui-media-box_text">
-      <view class="weui-media-box__title weui-media-box__title_in-text">{{project.name}}</view>
-      <view class="weui-media-box__desc">{{project.desc}}</view>
-
-    </view>
-  </view>
-
-  <button  class="weui-btn" type="primary" @tap="toInteractDefault" >原生互动</button>
-  <button  class="weui-btn" type="primary" @tap="toInteract({{interactId}})" >webview互动</button>
-
+    <swiper indicator-dots="true"
+            autoplay="true" interval="5000" duration="1000">
+        <repeat wx:for="{{ imgList  }}">
+            <swiper-item>
+                <image src="http://owhah4u2f.bkt.clouddn.com/images/houses/{{house.houseId ? house.houseId : 1}}/{{  index+1 }}.jpg?imageView2/1/w/1520/h/750/format/jpg/q/75|imageslim" class="slide-image" width="355" height="150"/>
+            </swiper-item>
+        </repeat>
+        </block>
+    </swiper>
+  <map id="map" longitude="113.324520" latitude="23.099994" scale="14"  markers="{{markers}}" style="width: 100%; height: 300px;"></map>
 
 </template>
 
@@ -37,51 +34,17 @@
     mixins = []
 
     data = {
-      projects:[
-        {
-          id: 0,
-          name: '海洋天堂',
-          imgUrl: 'http://owhah4u2f.bkt.clouddn.com/%E5%A3%B9%E5%9F%BA%E9%87%912.png',
-          tag: ['困境儿童','万有暖力']
-        },
-        {
-          id: 1,
-          name: '温暖包',
-          imgUrl: 'http://owhah4u2f.bkt.clouddn.com/%E5%A3%B9%E5%9F%BA%E9%87%912.png',
-          tag: ['困境儿童','万有暖力']
-        },
-        {
-          id: 2,
-          name: '壹乐园',
-          imgUrl:'http://owhah4u2f.bkt.clouddn.com/%E5%A3%B9%E5%9F%BA%E9%87%913.png',
-          tag: ['困境儿童','万有暖力']
-        },
-        {
-          id: 3,
-          name: '海洋天堂',
-          imgUrl: 'http://owhah4u2f.bkt.clouddn.com/%E5%A3%B9%E5%9F%BA%E9%87%911.png',
-          tag: ['困境儿童','万有暖力']
-        },
-        {
-          id: 4,
-          name: '净水计划',
-          imgUrl: 'http://owhah4u2f.bkt.clouddn.com/%E5%A3%B9%E5%9F%BA%E9%87%912.png',
-          tag: ['困境儿童','万有暖力']
-        },
-        {
-          id: 5,
-          name: '防灾减灾',
-          imgUrl:'http://owhah4u2f.bkt.clouddn.com/%E5%A3%B9%E5%9F%BA%E9%87%913.png',
-          tag: ['困境儿童','万有暖力']
-        },
-        {
-          id: 6,
-          name: '海洋天堂',
-          imgUrl:'http://owhah4u2f.bkt.clouddn.com/%E5%A3%B9%E5%9F%BA%E9%87%913.png',
-          tag: ['困境儿童','万有暖力']
-        }
-      ],
-      project:{}
+      imgList: [0,0,0,0,0],
+      house: {},
+      markers: [{
+            iconPath: "http://ci.xiaohongshu.com/21291940-e4d4-45c6-aff0-4425691a3787",
+            id: 0,
+            latitude: 23.099994,
+            longitude: 113.324520,
+            width: 50,
+            height: 50
+      }]
+
 
     }
 
@@ -100,7 +63,19 @@
         wepy.navigateTo({
           url: '/pages/interact_h5'
         });
-      }
+      },
+        changeIndicatorDots(e) {
+            this.indicatorDots = !this.data.indicatorDots
+        },
+        changeAutoplay(e) {
+            this.autoplay = !this.data.autoplay
+        },
+        intervalChange(e) {
+            this.interval = e.detail.value
+        },
+        durationChange(e) {
+            this.duration = e.detail.value
+        }
     }
 
     events = {
@@ -109,15 +84,17 @@
 
 
     onLoad(params, data) {
-      console.log(data)
-      // console.log(params)
+      console.log(data.preload.house)
+      this.house = data.preload.house
+      this.$apply();
+
+        // console.log(params)
       // this.project = this.projects[options.projectId];
-      // let that = this;
-      // wepy.setNavigationBarTitle({
-      //   title: that.project.name
-      // })
+      let that = this;
+      wepy.setNavigationBarTitle({
+        title: that.house.houseName
+      })
       // console.log(this.project)
-      // this.$apply();
     }
   }
 </script>

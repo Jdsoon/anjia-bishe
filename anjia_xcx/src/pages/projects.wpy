@@ -19,7 +19,7 @@
           <scroll-view scroll-x="false" scroll-y="true" class='scroll-views'>
             <view class="projects_list">
               <repeat for="{{housesList[selectedId]}}" index="index" item="item" key="id" >
-                <view class="project" @tap="toProjectDetail({{item.houseId}})">
+                <view class="project" @tap="toHouseDetail({{item}})">
                   <view class="project_img">
                     <image src="http://owhah4u2f.bkt.clouddn.com/images/houses/{{item.houseId}}/1.jpg" style="width: 130rpx;height: 130rpx"></image>
                   </view>
@@ -36,82 +36,7 @@
         </swiper-item>
 
       </repeat>
-        <!--<swiper-item class="swiper-item">-->
-          <!--<scroll-view scroll-x="false" scroll-y="true" class='scroll-views'>-->
-            <!--<view class="projects_list">-->
-              <!--<repeat for="{{housesList}}" index="index" item="item" key="id" >-->
-                <!--<view class="project" @tap="toProjectDetail({{item.houseId}})">-->
-                  <!--<view class="project_img">-->
-                    <!--<image src="http://owhah4u2f.bkt.clouddn.com/images/houses/{{item.houseId}}/1.jpg" style="width: 130rpx;height: 130rpx"></image>-->
-                  <!--</view>-->
-                  <!--<view class="project_name">{{item.houseName}}</view>-->
-                  <!--<view class="project_tag">-->
-                    <!--<view>{{item.areaName}}</view>-->
-                    <!--<view>{{item.aspect}}</view>-->
-                  <!--</view>-->
-                  <!--<view class="point">···</view>-->
-                <!--</view>-->
-              <!--</repeat>-->
-            <!--</view>-->
-          <!--</scroll-view>-->
-        <!--</swiper-item>-->
-        <!--<swiper-item class="swiper-item">-->
-          <!--<scroll-view scroll-x="false" scroll-y="true" class='scroll-views'>-->
-            <!--<view class="projects_list">-->
-              <!--<repeat for="{{housesList}}" index="index" item="item" key="id" >-->
-                <!--<view class="project" @tap="toProjectDetail({{item.houseId}})">-->
-                  <!--<view class="project_img">-->
-                    <!--<image src="http://owhah4u2f.bkt.clouddn.com/images/houses/{{item.houseId}}/1.jpg" style="width: 130rpx;height: 130rpx"></image>-->
-                  <!--</view>-->
-                  <!--<view class="project_name">{{item.houseName}}</view>-->
-                  <!--<view class="project_tag">-->
-                    <!--<view>{{item.areaName}}</view>-->
-                    <!--<view>{{item.aspect}}</view>-->
-                  <!--</view>-->
-                  <!--<view class="point">···</view>-->
-                <!--</view>-->
-              <!--</repeat>-->
-            <!--</view>-->
-          <!--</scroll-view>-->
-        <!--</swiper-item>-->
-        <!--<swiper-item class="swiper-item">-->
-          <!--<scroll-view scroll-x="false" scroll-y="true" class='scroll-views'>-->
-            <!--<view class="projects_list">-->
-              <!--<repeat for="{{housesList}}" index="index" item="item" key="id" >-->
-                <!--<view class="project" @tap="toProjectDetail({{item.houseId}})">-->
-                  <!--<view class="project_img">-->
-                    <!--<image src="http://owhah4u2f.bkt.clouddn.com/images/houses/{{item.houseId}}/1.jpg" style="width: 130rpx;height: 130rpx"></image>-->
-                  <!--</view>-->
-                  <!--<view class="project_name">{{item.houseName}}</view>-->
-                  <!--<view class="project_tag">-->
-                    <!--<view>{{item.areaName}}</view>-->
-                    <!--<view>{{item.aspect}}</view>-->
-                  <!--</view>-->
-                  <!--<view class="point">···</view>-->
-                <!--</view>-->
-              <!--</repeat>-->
-            <!--</view>-->
-          <!--</scroll-view>-->
-        <!--</swiper-item>-->
-        <!--<swiper-item class="swiper-item">-->
-          <!--<scroll-view scroll-x="false" scroll-y="true" class='scroll-views'>-->
-            <!--<view class="projects_list">-->
-              <!--<repeat for="{{housesList}}" index="index" item="item" key="id" >-->
-                <!--<view class="project" @tap="toProjectDetail({{item.houseId}})">-->
-                  <!--<view class="project_img">-->
-                    <!--<image src="http://owhah4u2f.bkt.clouddn.com/images/houses/{{item.houseId}}/1.jpg" style="width: 130rpx;height: 130rpx"></image>-->
-                  <!--</view>-->
-                  <!--<view class="project_name">{{item.houseName}}</view>-->
-                  <!--<view class="project_tag">-->
-                    <!--<view>{{item.areaName}}</view>-->
-                    <!--<view>{{item.aspect}}</view>-->
-                  <!--</view>-->
-                  <!--<view class="point">···</view>-->
-                <!--</view>-->
-              <!--</repeat>-->
-            <!--</view>-->
-          <!--</scroll-view>-->
-        <!--</swiper-item>-->
+
     </swiper>
   </view>
 
@@ -239,14 +164,14 @@
         this.$apply();
       },
 
-      toProjectDetail(projectId,e){
-        // this.$preload('projectDetail',project.getAllProjects())
+      toHouseDetail(house,e){
+        this.$preload('house',house)
 
         // this.$redirect('/pages/projectDetail?projectId=2');
-        this.$redirect('/pages/projectDetail');
-        // wepy.navigateTo({
-        //   url: '/pages/projectDetail?projectId='+projectId
-        // });
+        // this.$redirect('/pages/houseDetail');
+        wepy.navigateTo({
+          url: '/pages/houseDetail?houseId=' + house.houseId
+        });
       },
 
       currentChange(e){
