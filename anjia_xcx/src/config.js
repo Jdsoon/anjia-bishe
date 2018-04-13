@@ -13,9 +13,15 @@ const hosts = {
 
 const api = {
   houses:{
-    method: 'GET',
-    url: '/houses',
+    getAllhouses: {
+      method: 'GET',
+      url: '/houses'
+    },
 
+    addHouse: {
+      method: 'POST',
+      url: '/houses/addHouse'
+    }
   },
   getLoadingInfo:{
     method: 'GET',
@@ -24,11 +30,15 @@ const api = {
   user: {
     login: {
       method: 'POST',
-      url: '/user/login'
+      url: '/users/login'
     },
     getUserInfo: {
       method: 'POST',
-      url: '/user/getUserInfo'
+      url: '/users/getUserInfo'
+    },
+    wxlogin: {
+      method: 'POST',
+      url: '/users/wxlogin'
     }
   },
   projects:{

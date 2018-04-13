@@ -21,7 +21,6 @@
   }
 </style>
 <template>
-
   <view class="container" style="background: url({{loadingImg}}) no-repeat;background-size:100% 100%;">
     <rich-text nodes="{{nodes}}" bindtap="tap"></rich-text>
 
@@ -57,7 +56,7 @@
       userInfo: {
         nickName: '加载中...'
       },
-      // loadingImg:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515664586722&di=fae68bd0c4b84f4f9adcc28ccc740bf8&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201405%2F10%2F20140510221440_zvkHi.jpeg'
+      loadingImg:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515664586722&di=fae68bd0c4b84f4f9adcc28ccc740bf8&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201405%2F10%2F20140510221440_zvkHi.jpeg'
     }
 
     computed = {
@@ -92,18 +91,9 @@
       //   self.$apply()
       // })
 
-      // setTimeout(function (){
-      //   console.log('toProjects')
-      //   wepy.switchTab({
-      //     url: '/pages/projects'
-      //   })
-      // }, 3000)
 
       // const loadingInfo = await loading.getLoadingInfo();
-      await user.login()
-      const userInfo =   await wepy.getUserInfo()
-      this.userInfo = userInfo.userInfo
-      this.$apply()
+
 
       // this.loadingImg = loadingInfo ? loadingInfo.loadingImg;
 

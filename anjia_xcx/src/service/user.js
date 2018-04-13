@@ -6,38 +6,43 @@ import http from '../utils/request';
 const user = {
 
   async login() {
-    const userinfoRaw=await wepy.getUserInfo();
-    console.log('userinfoRaw',userinfoRaw)
-    try {
-      const loginInfo = await wepy.login();
-      console.log(loginInfo)
-      const loginData = await wepy.request({
-        url: api.user.login.url,
-        method: api.user.login.method,
-        data: {
-          'code':loginInfo.code,
-          'iv': userinfoRaw.iv,
-          'encryptedData': userinfoRaw.encryptedData
+    if(wepy.getStorageSync('userInfo')){
+      console.log('您已登录')
+      return { "errCode": "1","errMsg": "您已登录" }
+    }else{
+
+      const userinfoRaw=await wepy.getUserInfo();
+      console.log('userinfoRaw',userinfoRaw)
+      try {
+        const loginInfo = await wepy.login();
+        console.log(loginInfo)
+        const loginData = await wepy.request({
+          url: api.user.wxlogin.url,
+          method: api.user.wxlogin.method,
+          data: {
+            'code':loginInfo.code,
+            'iv': userinfoRaw.iv,
+            'encryptedData': userinfoRaw.encryptedData,
+            'userInfo': userinfoRaw.userInfo
+          }
+        })
+        let userInfo = userinfoRaw.userInfo
+        userInfo.openid = loginData.data.data.openid
+        wepy.setStorageSync('userInfo',userInfo);
+
+        console.log(userInfo)
+        if(loginData.stateCode && loginData.stateCode == '1002') {
+          console.log('登陆成功，用户权限已返回');
+        }else if(loginData.stateCode && loginData.stateCode == '2002'){
+          console.log('登陆失败')
         }
-      })
+        // console.log(stateCode)
 
-      if(loginData.stateCode && loginData.stateCode == '1002') {
-        console.log('登陆成功，用户权限已返回');
-      }else if(loginData.stateCode && loginData.stateCode == '2002'){
-        console.log('登陆失败')
-      }
-      // console.log(stateCode)
-      if(stateCode){
-
-        wepy.setStorageSync('auth_key', userinfo.data.data.auth_key);
-        wepy.setStorageSync('userInfo',userinfo.data.data.userInfo);
-        wepy.setStorageSync('role',userinfo.data.data.role);
-        console.log(stateCode)
-        return loginData.stateCode;
-      }
-    } catch (e) {
+      } catch (e) {
         console.log('登陆失败',e)
+      }
     }
+
   },
 
   async checkSession() {

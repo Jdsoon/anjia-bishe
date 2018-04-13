@@ -23,6 +23,26 @@ const houses = {
 
 
   },
+  async addHouse(houseInfo) {
+    console.log('addHouse')
+    try {
+      const housesList = await http({
+        url: api.houses.addHouse.url,
+        method: api.houses.addHouse.method,
+        data: houseInfo
+      })
+
+      console.log(housesList)
+      return housesList
+
+      // await wepy.setStorageSync('projects', projects);
+
+    } catch (e) {
+      console.log('getAllprojects')
+    }
+
+
+  },
 
   async getProjectDetail(projectId) {
 
