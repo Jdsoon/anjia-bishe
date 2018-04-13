@@ -5,6 +5,6 @@ export default async function request(options) {
   const response = await wepy.request(options);
   console.log(response)
   // console.log(response.data.status.stateCode)
-  return response;
+  return response.data;
 
 }

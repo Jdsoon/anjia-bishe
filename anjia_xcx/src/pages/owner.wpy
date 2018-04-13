@@ -103,7 +103,35 @@
                 <button class="weui-btn" type="primary"  formType="submit">确定</button>
             </view>
         </form>
+        <view class="page__bd" wx:if="{{  uploadingImage  }}">
+            <view class="weui-cells">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd">
+                        <view class="weui-uploader">
+                            <view class="weui-uploader__hd">
+                                <view class="weui-uploader__title">图片上传</view>
+                                <view class="weui-uploader__info">{{files.length}}/9</view>
+                            </view>
+                            <view class="weui-uploader__bd">
+                                <view class="weui-uploader__files" id="uploaderFiles">
+                                    <block wx:for="{{files}}" wx:key="*this">
+                                        <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+                                            <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+                                        </view>
+                                    </block>
 
+                                </view>
+                                <view class="weui-uploader__input-box">
+                                    <view class="weui-uploader__input" bindtap="chooseImage"></view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+                <button class="weui-btn" type="primary" @tap="uploadedImage">上传完成</button>
+
+            </view>
+        </view>
     </view>
   </view>
 
@@ -161,7 +189,8 @@
       floorIndex: 0,
       isAgree:false,
       topTips: '',
-      uploadingImage:false
+      uploadingImage: true,
+      files:[]
       // loadingImg:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515664586722&di=fae68bd0c4b84f4f9adcc28ccc740bf8&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201405%2F10%2F20140510221440_zvkHi.jpeg'
     }
 
@@ -197,6 +226,40 @@
           this.$apply()
         }
       },
+      chooseImage (e) {
+        var that = this;
+        console.log(e)
+        if (this.files.length <= 9) {
+          wx.chooseImage({
+            sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+            sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+            success: function (res) {
+              // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+              that.files = that.data.files.concat(res.tempFilePaths)
+              console.log(that.files)
+              that.$apply()
+            }
+          })
+        }else{
+          setTimeout(function () {
+            that.topTips = ''
+            that.$apply()
+          },3000)
+          this.topTips = "图片数量已达上限"
+        }
+
+      },
+      previewImage(e){
+        console.log('preview')
+        wx.previewImage({
+          urls: this.data.files // 需要预览的图片http链接列表
+        })
+      },
+      uploadedImage(e){
+        wepy.switchTab({
+          url: 'projects'
+        })
+      }
     }
 
     events = {
