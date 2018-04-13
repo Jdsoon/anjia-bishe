@@ -18,4 +18,6 @@ exports.sql={
     editPass:"update user set password = ? where id = ? and password = ?",
     getMyask:"select * from arrangeinfo where userId  = ? and status = 1",
 
+    checkUser:"select * from user where id=?"
+
 };

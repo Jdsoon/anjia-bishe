@@ -45,8 +45,7 @@ router.get('/login', function (req, res, next) {
 });
 
 router.post('/wxlogin', function (req, res, next) {
-    let code = req.body.code
-    console.log('wxlogin',code)
+    console.log('wxlogin',req.body)
     request.get({
         uri: 'https://api.weixin.qq.com/sns/jscode2session',
         json: true,
@@ -54,13 +53,16 @@ router.post('/wxlogin', function (req, res, next) {
             grant_type: 'authorization_code',
             appid: 'wx07cb2428898b40f1',
             secret: '2cc8b15a32ceea865c95477f1c1ff9f4',
-            js_code: code
+            js_code: req.body.code
         }
     }, (err, response, data) => {
         if (response.statusCode === 200) {
-            console.log("[openid]", data.openid)
-            console.log("[session_key]", data.session_key)
-
+            console.log(data)
+            if(data.openid){
+              userdao.checkUser(data.openid,function (result) {
+                console.log(result.length)
+              })
+            }
             //TODO: 生成一个唯一字符串sessionid作为键，将openid和session_key作为值，存入redis，超时时间设置为2小时
             //伪代码: redisStore.set(sessionid, openid + session_key, 7200)
 

@@ -23,6 +23,25 @@ exports.userDao={
             })
         })
     },
+    checkUser:function (id,callback) {
+        pool.getConnection(function (error,client) {
+            if(error){
+                console.log('error');
+                return;
+            }
+            console.log('userDao');
+            client.query(userSql.checkUser,[id],function (error,result) {
+                if(error){
+                    console.log(error.message+' from checkUser');
+                    callback('e004');
+                    return;
+                }
+
+                callback(result);
+                client.release();
+            })
+        })
+    },
     addUser:function (user,callback) {
 
         this.getPasswordById(user.telephone,function (result) {
