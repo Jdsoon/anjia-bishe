@@ -7,6 +7,7 @@ const version = 1.0
 // development and production host
 const hosts = {
   development: 'http://localhost:3000',
+  // development: 'http://10.23.173.108:3000',
   // production: 'https://xcx.hagongyi.com/api/v1'
   production: 'https://yyf.xcxhdj.hagongyi.com/api/v2'
 }

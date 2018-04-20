@@ -191,11 +191,12 @@
       console.log(data)
 
       const housesInfo = await houses.getHouses()
-      this.currentHouseList = housesInfo.data ? housesInfo.data : ''
-      this.housesList[0]  = this.currentHouseList
+      this.currentHouseList = housesInfo ? housesInfo : ''
+      this.$apply();
 
-      // const projects = await project.getAllProjects();
-      // console.log(projects);
+      this.housesList[0]  = this.currentHouseList
+      console.log(this.currentHouseList,housesInfo)
+
       this.$apply();
     }
 

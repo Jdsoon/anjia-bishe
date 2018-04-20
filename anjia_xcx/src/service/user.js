@@ -8,7 +8,8 @@ const user = {
   async login() {
     if(wepy.getStorageSync('userInfo')){
       console.log('您已登录')
-      return { "errCode": "1","errMsg": "您已登录" }
+      const user = wepy.getStorageSync('userInfo')
+      return user
     }else{
 
       const userinfoRaw=await wepy.getUserInfo();
@@ -28,6 +29,7 @@ const user = {
         })
         let userInfo = userinfoRaw.userInfo
         userInfo.openid = loginData.data.data.openid
+        userInfo.userId = loginData.data.data.userId
         wepy.setStorageSync('userInfo',userInfo);
 
         console.log(userInfo)

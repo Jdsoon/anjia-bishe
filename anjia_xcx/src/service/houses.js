@@ -8,8 +8,8 @@ const houses = {
     console.log('getAllHouses')
     try {
       const housesList = await http({
-        url: api.houses.url,
-        method: api.houses.method
+        url: api.houses.getAllhouses.url,
+        method: api.houses.getAllhouses.method
       })
 
       console.log(housesList)

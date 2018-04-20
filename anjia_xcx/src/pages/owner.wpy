@@ -120,6 +120,7 @@
                                         </view>
                                     </block>
 
+
                                 </view>
                                 <view class="weui-uploader__input-box">
                                     <view class="weui-uploader__input" bindtap="chooseImage"></view>
@@ -189,8 +190,9 @@
       floorIndex: 0,
       isAgree:false,
       topTips: '',
-      uploadingImage: true,
-      files:[]
+      uploadingImage: false,
+      files:[],
+      house: {}
       // loadingImg:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515664586722&di=fae68bd0c4b84f4f9adcc28ccc740bf8&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201405%2F10%2F20140510221440_zvkHi.jpeg'
     }
 
@@ -212,9 +214,17 @@
         if(this.isAgree){
           console.log(e.detail.value)
           let houseInfo = e.detail.value
-          houseInfo.ownerId = this.userInfo.openid
+          houseInfo.ownerId = this.userInfo.userId
+          this.house = houseInfo
           const result = await houses.addHouse(houseInfo)
           console.log(result)
+          if (result.houseId){
+            this.house.houseId = result.houseId
+            this.uploadingImage = true
+            this.$apply()
+          }
+
+
         }else{
           let that = this
           setTimeout(function () {
@@ -235,7 +245,23 @@
             sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
             success: function (res) {
               // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+              var tempFilePaths = res.tempFilePaths
               that.files = that.data.files.concat(res.tempFilePaths)
+              that.$apply()
+
+              wx.uploadFile({
+                url: 'http://up.qiniu.com/', //仅为示例，非真实的接口地址
+                filePath: tempFilePaths[0],
+                name: 'file',
+                formData:{
+                  'key': 'images/houses/'+that.house.houseId+'/'+that.files.length+'.jpg',
+                  'token': 'Ulg_mgLt7ByWKL4h2_fF1Gt80YShyr3a89lHaUnM:5T42rjQDg-qxCDncqf4XnTzt0K8=:eyJzY29wZSI6ImFuamlhIiwiZGVhZGxpbmUiOjE1MTQ2MDQ0NTk3ODh9'
+                },
+                success: function(result){
+                  that.$apply()
+
+                }
+              })
               console.log(that.files)
               that.$apply()
             }
@@ -294,9 +320,9 @@
       // }, 3000)
 
       // const loadingInfo = await loading.getLoadingInfo();
-      await user.login()
-      const userInfo =   await wepy.getUserInfo()
-      this.userInfo = userInfo.userInfo
+      const userInfo  = await user.login()
+      console.log(userInfo)
+      this.userInfo = userInfo
       this.$apply()
 
       // this.loadingImg = loadingInfo ? loadingInfo.loadingImg;
