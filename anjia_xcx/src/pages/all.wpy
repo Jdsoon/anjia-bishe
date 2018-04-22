@@ -1,0 +1,177 @@
+<style lang="less">
+    page{
+        background-color: #F8F8F8;
+        font-size: 16px;
+        font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
+    }
+    .page__hd {
+        padding: 40px;
+    }
+    .page__bd {
+        padding-bottom: 40px;
+    }
+    .page__bd_spacing {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .page__ft{
+        padding-bottom: 10px;
+        text-align: center;
+    }
+
+    .page__title {
+        text-align: left;
+        font-size: 20px;
+        font-weight: 400;
+    }
+
+    .page__desc {
+        margin-top: 5px;
+        color: #888888;
+        text-align: left;
+        font-size: 14px;
+    }
+    .weui-form-preview{
+        margin-bottom: 25px;
+    }
+
+    .delete_btn{
+        color: crimson;
+    }
+</style>
+<template>
+
+    <view class="page">
+        <view class="page__hd">
+            <view class="page__title">目前所有房源</view>
+        </view>
+        <view class="page__bd">
+            <view class="weui-form-preview">
+                <view class="weui-form-preview__hd">
+                    <view class="weui-form-preview__item">
+                        <view class="weui-form-preview__label">房源租金</view>
+                        <view class="weui-form-preview__value_in-hd">¥2400.00</view>
+                    </view>
+                </view>
+                <view class="weui-form-preview__bd">
+                    <view class="weui-form-preview__item">
+                        <view class="weui-form-preview__label">房源名称</view>
+                        <view class="weui-form-preview__value">禅思小竺</view>
+                    </view>
+                    <view class="weui-form-preview__item">
+                        <view class="weui-form-preview__label">业主</view>
+                        <view class="weui-form-preview__value">Deson</view>
+                    </view>
+                    <view class="weui-form-preview__item">
+                        <view class="weui-form-preview__label">位置</view>
+                        <view class="weui-form-preview__value">姑苏 安南小区</view>
+                    </view>
+                    <view class="weui-form-preview__item">
+                        <view class="weui-form-preview__label">形容</view>
+                        <view class="weui-form-preview__value">独具特色的竹林雅居，文艺禅思，心灵独特旅程</view>
+                    </view>
+                </view>
+                <view class="weui-form-preview__ft">
+                    <view  class="weui-form-preview__btn delete_btn" hover-class="weui-form-preview__btn_active">删除</view>
+                    <navigator url="" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">查看</navigator>
+                </view>
+            </view>
+            <view class="weui-form-preview">
+                <view class="weui-form-preview__hd">
+                    <view class="weui-form-preview__label">付款金额</view>
+                    <view class="weui-form-preview__value_in-hd">¥2400.00</view>
+                </view>
+                <view class="weui-form-preview__bd">
+                    <view class="weui-form-preview__item">
+                        <view class="weui-form-preview__label">商品</view>
+                        <view class="weui-form-preview__value">电动打蛋机</view>
+                    </view>
+                    <view class="weui-form-preview__item">
+                        <view class="weui-form-preview__label">标题标题</view>
+                        <view class="weui-form-preview__value">名字名字名字</view>
+                    </view>
+                    <view class="weui-form-preview__item">
+                        <view class="weui-form-preview__label">标题标题</view>
+                        <view class="weui-form-preview__value">很长很长的名字很长很长的名字很长很长的名字很长很长的名字很长很长的名字</view>
+                    </view>
+                </view>
+                <view class="weui-form-preview__ft">
+                    <navigator class="weui-form-preview__btn weui-form-preview__btn_default" hover-class="weui-form-preview__btn_active">辅助操作</navigator>
+                    <navigator class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">操作</navigator>
+                </view>
+            </view>
+        </view>
+    </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import loading from '../service/loading'
+  import user from '../service/user'
+
+
+  export default class All extends wepy.page {
+    config = {
+      navigationBarTitleText: '所有房源'
+    }
+    components = {
+
+    }
+
+    mixins = []
+
+    data = {
+      userInfo: {
+        nickName: '加载中...'
+      },
+      loadingImg:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515664586722&di=fae68bd0c4b84f4f9adcc28ccc740bf8&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201405%2F10%2F20140510221440_zvkHi.jpeg'
+    }
+
+    computed = {
+
+    }
+
+    methods = {
+
+    }
+
+    events = {
+
+    }
+
+    async onLoad() {
+
+
+      // let self = this
+      // this.$parent.getUserInfo(function (userInfo) {
+      //   if (userInfo) {
+      //     self.userInfo = userInfo
+      //   }
+      //
+      //   self.normalTitle = '标题已被修改'
+      //
+      //   self.setTimeoutTitle = '标题三秒后会被修改'
+      //   setTimeout(() => {
+      //     self.setTimeoutTitle = '到三秒了'
+      //     self.$apply()
+      //   }, 3000)
+      //
+      //   self.$apply()
+      // })
+
+
+      // const loadingInfo = await loading.getLoadingInfo();
+
+
+      // this.loadingImg = loadingInfo ? loadingInfo.loadingImg;
+
+      //
+      // if(!await user.checkSession()){
+      //    const userInfo = await user.login();
+      //    this.userInfo = userInfo;
+      //    this.$apply();
+      // }
+    }
+  }
+</script>

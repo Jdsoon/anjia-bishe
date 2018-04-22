@@ -10,6 +10,8 @@
   box-sizing: border-box;
 }
 
+
+
 </style>
 
 <script>
@@ -19,12 +21,15 @@ import 'wepy-async-function'
 export default class extends wepy.app {
   config = {
     pages: [
-      'pages/projects',
+
+        'pages/mine',
+        'pages/todo',
+        'pages/all',
+        'pages/projects',
 
       'pages/owner',
 
       'pages/welcome',
-      'pages/mine',
       'pages/index',
       'pages/projectDetail',
       'pages/houseDetail',
@@ -59,8 +64,8 @@ export default class extends wepy.app {
         {
           pagePath: 'pages/mine',
           text: '我的',
-          iconPath: 'assets/images/action.png',
-          selectedIconPath: 'assets/images/action_selected.png'
+          iconPath: 'assets/images/me.png',
+          selectedIconPath: 'assets/images/me_selected.png'
 
         }
       ]

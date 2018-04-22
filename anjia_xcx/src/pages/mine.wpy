@@ -1,8 +1,9 @@
 <style lang="less">
-  .container{
-    width: 100%;
-    height: 1000rpx;
-
+  .page__hd{
+      width: 750rpx;
+      height: 450rpx;
+      background: url("http://owhah4u2f.bkt.clouddn.com/anjia_xcx_bg.jpg") no-repeat;
+      background-size: 100% 100%;
   }
   .userinfo {
     display: flex;
@@ -11,28 +12,61 @@
   }
 
   .userinfo-avatar {
-    width: 80rpx;
-    height: 80rpx;
+    width: 120rpx;
+    height: 120rpx;
     border-radius: 50%;
+    margin-top: 100rpx;
   }
 
   .userinfo-nickname {
-    color: #aaa;
+    color: white;
   }
+  .userinfo-desc{
+      font-size: 26rpx;
+      color: white;
+      margin-top: 30rpx;
+  }
+  .weui-media-box{
+      color: #aaa;
+  }
+
 </style>
 <template>
-  <view class="container" style="background: url({{loadingImg}}) no-repeat;background-size:100% 100%;">
-    <rich-text nodes="{{nodes}}" bindtap="tap"></rich-text>
 
     <view class="page">
       <view class="page__hd">
         <view class="userinfo">
-          <image class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"/>
-          <view class="userinfo-nickname">{{ userInfo.nickName }}</view>
+          <image class="userinfo-avatar" src="http://owhah4u2f.bkt.clouddn.com/images/user/2.jpg" background-size="cover"/>
+          <view class="userinfo-nickname">Deson</view>
+          <view class="userinfo-desc">TA是一个很帅气的小伙子哦～</view>
         </view>
       </view>
+      <view class="page__bd">
+          <view class="weui-panel">
+              <view class="weui-panel__hd">管理员角色</view>
+              <view class="weui-panel__bd">
+                  <view class="weui-media-box weui-media-box_small-appmsg">
+                      <view class="weui-cells weui-cells_in-small-appmsg">
+                          <navigator url="./all" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                              <view class="weui-cell__hd"><image src="../assets/SVG/all.svg" style="width: 20px;height: 20px;margin-right: 5px" /></view>
+                              <view class="weui-cell__bd weui-cell_primary">
+                                  <view>所有房源</view>
+                              </view>
+                              <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                          </navigator>
+                          <navigator url="./todo" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                              <view class="weui-cell__hd"><image src="../assets/SVG/todo.svg" style="width: 20px;height: 20px;margin-right: 5px" /></view>
+                              <view class="weui-cell__bd weui-cell_primary">
+                                  <view>待审核房源</view>
+                              </view>
+                              <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                          </navigator>
+                      </view>
+                  </view>
+              </view>
+          </view>
+      </view>
     </view>
-  </view>
 
 </template>
 
