@@ -49,17 +49,10 @@ export default class extends wepy.app {
       backgroundColor: '#fff',
       list: [
         {
-          pagePath: 'pages/index',
+          pagePath: 'pages/projects',
           text: '首页',
           iconPath: 'assets/images/home.png',
           selectedIconPath: 'assets/images/home_selected.png'
-        },
-        {
-          pagePath: 'pages/projects',
-          text: '行动',
-          iconPath: 'assets/images/action.png',
-          selectedIconPath: 'assets/images/action_selected.png'
-
         },
         {
           pagePath: 'pages/mine',
