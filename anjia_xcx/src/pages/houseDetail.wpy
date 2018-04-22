@@ -1,4 +1,7 @@
 <style lang="less">
+    .page{
+        background: lightgrey;
+    }
     swiper{
         width: 750rpx;
         height: 400rpx;
@@ -6,54 +9,240 @@
             width: 100%;
         }
     }
+    .provide{
+        margin-top: 20rpx;
+        .icon{
+            width: 150rpx;
+            height: 200rpx;
+            text-align: center;
+            display: inline-block;
+            .icon-img{
+                display: inline-block;
+                width: 100rpx;
+                height: 100rpx;
+            }
+            .icon-txt{
+                color:white;
+                width: 150rpx;
+                text-align: center;
+                font-size: 30rpx;
+            }
+        }
+    }
+
+    .comment{
+        width: 100%;
+        height: auto;
+        display: block;
+        margin-top: 20rpx;
+        position: relative;
+        .comment-img{
+            width: 60rpx; height: 60rpx; display: inline-block;border-radius: 50%;
+            margin-left: 50rpx;
+        }
+        .comment-userName{
+            width: 200rpx;
+            height: 100rpx;
+            display: block;
+            position: absolute;
+            color: #999999;
+            top: 5rpx;
+            left: 120rpx;
+            font-size: 30rpx;
+            font-weight: 600;
+        }
+        .comment-content{
+            width: 500rpx;
+            height: auto;
+            margin: 0 auto;
+            background: #f5f7f9;
+            font-size: 28rpx;
+            color: #999999;
+            padding: 30rpx;
+        }
+    }
+    .weui-btn{
+        background-color: #44aaff;
+        width: 200rpx;
+        font-size: 26rpx;
+        color: white;
+    }
+    .share-btn{
+        position: fixed;
+        display: inline-block;
+        bottom: 30rpx;
+        right: 30rpx;
+        width: 80rpx;
+        height: 80rpx;
+        border-radius: 50%;
+        padding: 0;
+        background: #44aaff;
+        text-align: center;
+        .share-img{
+            width: 50rpx;
+            height: 50rpx;
+            display: inline-block;
+        }
+
+    }
+
 </style>
 <template>
     <view class="page">
-        <swiper indicator-dots="true"
-                autoplay="true" interval="5000" duration="1000">
-            <repeat wx:for="{{ imgList  }}">
-                <swiper-item>
-                    <image src="http://owhah4u2f.bkt.clouddn.com/images/houses/{{house.houseId ? house.houseId : 1}}/{{  index+1 }}.jpg?imageView2/1/w/1520/h/750/format/jpg/q/75|imageslim" class="slide-image" width="355" height="150"/>
-                </swiper-item>
-            </repeat>
-        </swiper>
+        <view class="page__hd">
+            <swiper indicator-dots="true"
+                    autoplay="true" interval="5000" duration="1000">
+                <repeat wx:for="{{ imgList  }}">
+                    <swiper-item>
+                        <image src="http://owhah4u2f.bkt.clouddn.com/images/houses/{{house.houseId ? house.houseId : 1}}/{{  index+1 }}.jpg?imageView2/1/w/1520/h/750/format/jpg/q/75|imageslim" class="slide-image" width="355" height="150"/>
+                    </swiper-item>
+                </repeat>
+            </swiper>
+        </view>
+
         <view class="page_bd">
-            <view class="weui-cells weui-cells_after-title">
-                <view class="weui-cell">
-                    <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
-                        <image src="../images/pic_160.png" style="width: 50px; height: 50px; display: block"/>
-                        <view class="weui-badge" style="position: absolute;top: -.4em;right: -.4em;">8</view>
+            <view class="weui-panel">
+                <view class="weui-panel__bd">
+                    <view class="weui-media-box weui-media-box_text">
+                        <view class="weui-media-box__title weui-media-box__title_in-text">极简北欧装修小家</view>
+                        <view class="weui-media-box__desc">后现代风格，灰白灰为主调，色彩明快独立。临近阿里巴巴总部仅340m</view>
+                        <view class="weui-media-box__info">
+                            <view class="weui-media-box__info__meta">姑苏 安家小区</view>
+                        </view>
+                        <view class="weui-media-box__info">
+                            <view class="weui-media-box__info__meta">楼层</view>
+                            <view class="weui-media-box__info__meta">7楼</view>
+                            <view class="weui-media-box__info__meta">1室</view>
+                        </view>
+
                     </view>
-                    <view class="weui-cell__bd">
-                        <view>联系人名称</view>
-                        <view style="font-size: 13px;color: #888888;">摘要信息</view>
-                    </view>
-                </view>
-                <view class="weui-cell weui-cell_access">
-                    <view class="weui-cell__bd">
-                        <view style="display: inline-block; vertical-align: middle">单行列表</view>
-                        <view class="weui-badge" style="margin-left: 5px;">8</view>
-                    </view>
-                    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-                </view>
-                <view class="weui-cell weui-cell_access">
-                    <view class="weui-cell__bd">
-                        <view style="display: inline-block; vertical-align: middle">单行列表</view>
-                        <view class="weui-badge" style="margin-left: 5px;">8</view>
-                    </view>
-                    <view class="weui-cell__ft weui-cell__ft_in-access">详细信息</view>
-                </view>
-                <view class="weui-cell weui-cell_access">
-                    <view class="weui-cell__bd">
-                        <view style="display: inline-block; vertical-align: middle">单行列表</view>
-                        <view class="weui-badge" style="margin-left: 5px;">New</view>
-                    </view>
-                    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
                 </view>
             </view>
-            <map id="map" longitude="113.324520" latitude="23.099994" scale="14"  markers="{{markers}}" style="width: 100%; height: 300px;"></map>
+            <view class="weui-panel__hd">户型配套</view>
+
+            <view class="provide">
+                <view class="icon">
+                    <image class="icon-img" src="../assets/SVG/water.svg" />
+                    <view class="icon-txt">淋浴</view>
+                </view>
+                <view class="icon">
+                    <image class="icon-img" src="../assets/SVG/matong.svg" />
+                    <view class="icon-txt">坐便器</view>
+                </view>
+                <view class="icon">
+                    <image class="icon-img" src="../assets/SVG/bed.svg" />
+                    <view class="icon-txt">1.5床</view>
+                </view>
+                <view class="icon">
+                    <image class="icon-img" src="../assets/SVG/desk.svg" />
+                    <view class="icon-txt">桌子</view>
+                </view>
+                <view class="icon">
+                    <image class="icon-img" src="../assets/SVG/xiyiji.svg" />
+                    <view class="icon-txt">洗衣机</view>
+                </view>
+                <view class="icon">
+                    <image class="icon-img" src="../assets/SVG/kongtiao.svg" />
+                    <view class="icon-txt">空调</view>
+                </view>
+                <view class="icon">
+                    <image class="icon-img" src="../assets/SVG/bingxiang.svg" />
+                    <view class="icon-txt">冰箱</view>
+                </view>
+                <view class="icon">
+                    <image class="icon-img" src="../assets/SVG/luyouqi.svg" />
+                    <view class="icon-txt">路由器</view>
+                </view>
+                <view class="icon">
+                    <image class="icon-img" src="../assets/SVG/yizi.svg" />
+                    <view class="icon-txt">椅子</view>
+                </view>
+                <view class="icon">
+                    <image class="icon-img" src="../assets/SVG/shafa.svg" />
+                    <view class="icon-txt">沙发</view>
+                </view>
+                <view class="icon">
+                    <image class="icon-img" src="../assets/SVG/yigui.svg" />
+                    <view class="icon-txt">衣柜</view>
+                </view>
+
+            </view>
+
+
+            <view class="weui-cells weui-cells_after-title" @tap="callOwner">
+                <view class="weui-cell">
+                    <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                        <image src="http://owhah4u2f.bkt.clouddn.com/images/user/2.jpg" style="width: 50px; height: 50px; display: block;border-radius: 50%"/>
+                        <view class="weui-badge" style="position: absolute;top: -.4em;right: -.4em;background-color: #44aaff">房东</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <view>Deson</view>
+                        <view style="font-size: 13px;color: #888888;">这是一个帅气的小伙子</view>
+                    </view>
+                </view>
+            </view>
+            <view class="weui-panel weui-panel_access">
+                <view class="weui-panel__hd">地理位置</view>
+
+                <view class="weui-panel__bd">
+                    <map id="map" @tap="tapMap()" longitude="113.324520" latitude="23.099994" scale="14"  markers="{{markers}}" style="width: 100%; height: 300px;"></map>
+                </view>
+            </view>
+            <view class="weui-panel weui-panel_access">
+                <view class="weui-panel__hd">评论</view>
+
+                <view class="comment">
+                    <image class="comment-img" src="http://owhah4u2f.bkt.clouddn.com/images/user/2.jpg"/>
+                    <view class="comment-userName">
+                        大松子kkk
+                    </view>
+                    <view class="comment-content"
+                    >
+                        这个房子还不错是个的房间刘佳收到回复可见是你的空间白色的空间分布是绝代风华收到回复健康的话
+                    </view>
+                </view>
+                <view class="comment">
+                    <image class="comment-img" src="http://owhah4u2f.bkt.clouddn.com/images/user/2.jpg"/>
+                    <view class="comment-userName">
+                        大松子kkk
+                    </view>
+                    <view class="comment-content"
+                    >
+                        这个房子还不错是个好地方\n
+                        sdsdsdsds\n
+                        sdsdsds\nsdsds\n
+                    </view>
+                </view>
+                <view class="comment">
+                    <image class="comment-img" src="http://owhah4u2f.bkt.clouddn.com/images/user/2.jpg"/>
+                    <view class="comment-userName">
+                        大松子kkk
+                    </view>
+                    <view class="comment-content"
+                    >
+                        这个房子还不错是个好地方\n
+                        sdsdsdsds\n
+                        sdsdsds\nsdsds\n
+                    </view>
+                </view>
+                <view class="weui-panel__hd">我也要说</view>
+                <textarea class="weui-textarea" placeholder="快点这里输入对房东大大的看法吧～" style="height: 200rpx"/>
+                <view class="weui-btn-area">
+                    <button class="weui-btn"  bindtap="showTopTips">我写完啦</button>
+                </view>
+
+
+
+            </view>
+
 
         </view>
+
+        <button open-type="share" class="share-btn">
+            <image class="share-img"
+                    src="../assets/SVG/share.svg"
+            />
+        </button>
     </view>
 
 
@@ -75,7 +264,6 @@
       imgList: [0,0,0,0,0],
       house: {},
       markers: [{
-            iconPath: "http://ci.xiaohongshu.com/21291940-e4d4-45c6-aff0-4425691a3787",
             id: 0,
             latitude: 23.099994,
             longitude: 113.324520,
@@ -96,24 +284,62 @@
           url: '/pages/interact'
         });
       },
+        tapMap(){
+            wx.getLocation({
+                type: 'gcj02', //返回可以用于wx.openLocation的经纬度
+                success: function(res) {
+                    var latitude = res.latitude
+                    var longitude = res.longitude
+                    wx.openLocation({
+                        latitude: latitude,
+                        longitude: longitude,
+                        scale: 28
+                    })
+                }
+            })
+        },
 
-      toInteract(){
-        wepy.navigateTo({
-          url: '/pages/interact_h5'
-        });
-      },
-        changeIndicatorDots(e) {
-            this.indicatorDots = !this.data.indicatorDots
-        },
-        changeAutoplay(e) {
-            this.autoplay = !this.data.autoplay
-        },
-        intervalChange(e) {
-            this.interval = e.detail.value
-        },
-        durationChange(e) {
-            this.duration = e.detail.value
+        callOwner(){
+            wx.showActionSheet({
+                itemList: ['联系房东大大', '收藏房东大大联系方式'],
+                success: function(res) {
+                    console.log(res.tapIndex)
+                    if (res.tapIndex == 0){
+                        wx.makePhoneCall({
+                            phoneNumber: '18017274727' //仅为示例，并非真实的电话号码
+                        })
+                    }else if(res.tapIndex == 1){
+                        wx.addPhoneContact({
+                            nickName: '房东大大',
+                            lastName: '房东',
+                            firstName: 'dada',
+                            mobilePhoneNumber: '18017274727',
+                            addressCity: 'huangpiu'
+                        })
+                    }
+                },
+                fail: function(res) {
+                    console.log(res.errMsg)
+                }
+            })
+            // wx.showModal({
+            //     title: '提示',
+            //     content: '是否联系房东大大？',
+            //     showCancel: "true",
+            //     cancelText: "取消",
+            //     cancelColor: "#333",
+            //     confirmText: "确认",
+            //     confirmColor: "#405f80",
+            //     success:function(res){
+            //         if(res.confirm){
+            //             wx.makePhoneCall({
+            //                 phoneNumber: '18017274727' //仅为示例，并非真实的电话号码
+            //             })
+            //         }
+            //     }
+            // })
         }
+
     }
 
     events = {
@@ -134,5 +360,24 @@
       })
       // console.log(this.project)
     }
+
+      onShareAppMessage () {
+
+          return {
+              title: '看看我挑选的这个房子怎么样？',
+              path: '/pages/houseDetail,
+              success(res) {
+                  wx.getShareInfo({
+                      // shareTicket: res.shareTickets[0],
+                      complete (res) {
+                          wepy.showToast({
+                              title: '分享成功',
+                              icon: 'success',
+                              duration: 2000
+                          })
+                      }
+                  })
+              }
+          }
   }
 </script>
