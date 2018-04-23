@@ -51,8 +51,10 @@ exports.userDao={
                         console.log("数据库连接错误");
                         return;
                     }
-                    client.query(userSql.addUser,[user.userName,user.telephone,user.password,'',81],function (error,result) {
+                    console.log(user)
+                    client.query(userSql.addUser,[user.nickName,user.avatarUrl,user.openid],function (error,result) {
                         if(error){
+                            console.log(error)
                             callback('e004');
                             return;
                         }

@@ -6,7 +6,6 @@ var sms = require('./../utils/sendMessage');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   housesDao.getAllHouses(function (result) {
-      console.log("houseRoute");
       if(result.length==0){
         res.json(null);
       }else{
@@ -21,7 +20,6 @@ router.post('/getArrInfo', function(req, res, next) {
     if(house){
         console.log("getArrInfo:houseId"+house.houseId);
         housesDao.getArrInfo(house.houseId,function (result) {
-            console.log("arrangeInfo");
             if(result.length==0){
                 res.json(null);
             }else{

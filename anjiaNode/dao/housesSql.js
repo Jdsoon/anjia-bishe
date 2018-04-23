@@ -3,7 +3,7 @@
  */
 exports.sql={
     getAllHouses:'select * from housesinfo',
-    getArrInfo:'select * from arrangeinfo  where houseId=? and status = 2',
+    getArrInfo:'select * from arrangeinfo  where houseId=?',
     getFocusNum:'select count(houseId)  focusNum from focusinfo where houseId = ?',
     addHouse:'insert into houses(houseName,housePrice,publishTime,houseTypeId,ownerId,area,areaName,address,floor)values(?,?,?,?,?,?,?,?,?)',
     addArrInfo:"update arrange set adate = ?,comment = ?,status = 2 where userId = ? and houseId = ?",

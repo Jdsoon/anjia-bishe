@@ -3,7 +3,6 @@
  */
 exports.sql={
     getPasswordById:'select * from user where telephone=?',
-    addUser:'insert into user(userName,telephone,password) values(?,?,?)',
     createToken:'update user set token=? where telephone=?',
     getUserIcon:'select user_icon.icon from user inner join user_icon ON user.id=user_icon.user_id where user.telephone=? order by upload_date desc ',
     addUserIcon:'call addUserIcon(?,?,@res)',
@@ -18,6 +17,7 @@ exports.sql={
     editPass:"update user set password = ? where id = ? and password = ?",
     getMyask:"select * from arrangeinfo where userId  = ? and status = 1",
 
-    checkUser:"select * from user where id=?"
+    addUser:'insert into user(userName,avatarUrl,openid) values(?,?,?)',
+    checkUser:"select * from user where openid=?"
 
 };

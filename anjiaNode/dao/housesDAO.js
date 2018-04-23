@@ -65,7 +65,6 @@ exports.housesDao={
                     callback('e004');
                     return;
                 }
-
                 callback(result);
                 client.release();
             })
