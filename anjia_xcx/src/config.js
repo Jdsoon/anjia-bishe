@@ -19,6 +19,10 @@ const api = {
       method: 'GET',
       url: '/houses'
     },
+    getAllTodoHouses: {
+      method: 'GET',
+      url: '/houses/getAllTodoHouses'
+    },
 
     addHouse: {
       method: 'POST',
@@ -31,6 +35,22 @@ const api = {
     addComment: {
       method: 'POST',
       url: '/houses/addComment'
+    },
+    getHousesById: {
+      method: 'POST',
+      url: '/houses/getHousesById'
+    },
+    agreeHouses: {
+      method: 'POST',
+      url: '/houses/agreeHouses'
+    },
+    getTodoHousesById: {
+      method: 'POST',
+      url: '/houses/getTodoHousesById'
+    },
+    delHouse: {
+      method: 'POST',
+      url: '/houses/delHouse'
     }
   },
   getLoadingInfo:{

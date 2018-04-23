@@ -2,7 +2,10 @@
  * Created by lzhan on 2017/8/25.
  */
 exports.sql={
-    getAllHouses:'select * from housesinfo',
+    getAllHouses:'select * from housesinfo where now=1',
+    getAllTodoHouses:'select * from housesinfo where now=0',
+    getHousesById:'select * from housesinfo where houseId=?',
+    getTodoHousesById:'select * from housesinfo where houseId=? and now=0',
     getArrInfo:'select * from arrangeinfo  where houseId=?',
     getFocusNum:'select count(houseId)  focusNum from focusinfo where houseId = ?',
     addHouse:'insert into houses(houseName,housePrice,publishTime,houseTypeId,ownerId,area,areaName,address,floor)values(?,?,?,?,?,?,?,?,?)',
@@ -20,8 +23,9 @@ exports.sql={
     askWatch:"insert into arrange(userId,houseId) SELECT ?, ? FROM DUAL WHERE not exists (select * from arrange where userId = ? and houseId = ?) ",
     getArrInfoByArrId:"select * from arrangeinfo where arrangeId = ?",
     agreeWatch:"update arrange set status = 1 where arrangeId = ?",
+    agreeHouses:"update houses set now=1 where houseId=?",
 
     addComment:"insert into arrange(userId,houseId,comment) values(?,?,?)",
-  addHouse:'insert into houses(houseName,housePrice,publishTime,houseTypeId,ownerId,area,areaName,address,floor,desc,now)values(?,?,?,?,?,?,?,?,?,?,?)',
+  addHouse:'insert into houses(houseName,housePrice,publishTime,houseTypeId,ownerId,area,areaName,address,floor,`desc`,now)values(?,?,?,?,?,?,?,?,?,?,?)',
 
 };

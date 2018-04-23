@@ -191,7 +191,7 @@
                 </view>
             </view>
             <view class="weui-panel weui-panel_access">
-                <view class="weui-panel__hd">评论</view>
+                <view class="weui-panel__hd" wx:if="{{comments.length}}">评论</view>
 
                 <block wx:for="{{comments}}" >
                     <view class="comment">
@@ -332,12 +332,23 @@
         let addInfo = {}
         console.log(this.user)
         addInfo.userId = this.user.userId
-
         addInfo.houseId = this.house.houseId
         addInfo.comment = e.detail.value.comment
         console.log(addInfo)
         const res = await houses.addComment(addInfo)
         console.log('form发生了submit事件，返回', res)
+        if(res.stateCode == 39){
+          wx.showToast({
+            title: '评论成功',
+            icon: 'success',
+            duration: 1000,
+            success: function () {
+              wx.redirectTo({
+                url: './houseDetail?houseId='+addInfo.houseId
+              })
+            }
+          })
+        }
       }
 
     }
@@ -350,20 +361,30 @@
 
 
     async onLoad(params, data){
-      console.log(data.preload.house)
-      this.house = data.preload.house
       this.user = wepy.getStorageSync('userInfo')
-      this.$apply()
+
+      console.log(params)
+      if (params.houseId){
+        const houseInfo = await houses.getHousesById(parseInt(params.houseId))
+        this.house = houseInfo[0]
+        console.log(houseInfo)
+      }else{
+        this.house = data.preload.house
+
+
+        let that = this;
+        wepy.setNavigationBarTitle({
+          title: that.house.houseName
+        })
+        // console.log(this.project)
+      }
+
       const comments = await houses.getCommentsById(this.house.houseId)
       console.log(comments);
       this.comments = comments
-      // console.log(params)
-      // this.project = this.projects[options.projectId];
-      let that = this;
-      wepy.setNavigationBarTitle({
-        title: that.house.houseName
-      })
-      // console.log(this.project)
+      this.$apply()
+
+
     }
 
       onShareAppMessage () {

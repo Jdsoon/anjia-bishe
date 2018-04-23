@@ -30,6 +30,67 @@ router.post('/getArrInfo', function(req, res, next) {
 
 
 });
+router.get('/getAllTodoHouses', function(req, res, next) {
+        housesDao.getAllTodoHouses(function (result) {
+            if(result.length==0){
+                res.json(null);
+            }else{
+                res.json(result);
+            }
+        })
+
+
+
+});
+router.post('/getHousesById', function(req, res, next) {
+    var house = req.body;
+    if(house){
+        console.log("getHousesById:houseId"+house.houseId);
+        housesDao.getHousesById(house.houseId,function (result) {
+            if(result.length==0){
+              console.log(result)
+                res.json(null);
+            }else{
+                res.json(result);
+            }
+        })
+    }
+
+
+});
+router.post('/agreeHouses', function(req, res, next) {
+    var house = req.body;
+    if(house){
+        console.log("agreeHouses:houseId"+house.houseId);
+        housesDao.agreeHouses(house.houseId,function (result) {
+            if(result.affectedRows>0){
+                res.json({stateCode:1});
+            }else{
+
+                res.json(result);
+            }
+        })
+    }
+
+
+});
+
+router.post('/getTodoHousesById', function(req, res, next) {
+    var house = req.body;
+    if(house){
+        console.log("getTodoHousesById:houseId"+house.houseId);
+        housesDao.getTodoHousesById(house.houseId,function (result) {
+            if(result.length==0){
+              console.log(result)
+                res.json(null);
+            }else{
+                res.json(result);
+            }
+        })
+    }
+
+
+});
 
 
 //获取头条
@@ -185,6 +246,21 @@ router.post('/addHouse', function(req, res, next) {
         housesDao.addHouse(house,function (result) {
 
             if(result.affectedRows==1){
+              var obj = {
+                PhoneNumbers: '18362202673',
+                TemplateCode: 'SMS_100860003',//模板编号
+                TemplateParam: '{"name":"jidesong","userName":"desong","telphone":"15503878257"}',//变量名
+              };
+              obj.PhoneNumbers = house.telephone;
+              var o = JSON.parse(obj.TemplateParam);
+              o.name = '管理员大哥';
+              o.userName = house.ownerName;
+              o.telphone  = house.telephone;
+              console.log(o);
+              obj.TemplateParam = JSON.stringify(o);
+              sms.sendMessage(obj.PhoneNumbers,obj.TemplateCode,obj.TemplateParam,function(data){
+                console.log(data);
+              });
                 res.json({"stateCode":11,"houseId":result.insertId});
             }else{
                 res.json(result);

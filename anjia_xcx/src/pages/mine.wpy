@@ -36,8 +36,8 @@
     <view class="page">
       <view class="page__hd">
         <view class="userinfo">
-          <image class="userinfo-avatar" src="http://owhah4u2f.bkt.clouddn.com/images/user/2.jpg" background-size="cover"/>
-          <view class="userinfo-nickname">Deson</view>
+          <image class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"/>
+          <view class="userinfo-nickname">{{ userInfo.nickName }}</view>
           <view class="userinfo-desc">TA是一个很帅气的小伙子哦～</view>
         </view>
       </view>
@@ -106,6 +106,7 @@
     }
 
     async onLoad() {
+      this.userInfo = wepy.getStorageSync('userInfo')
 
 
       // let self = this

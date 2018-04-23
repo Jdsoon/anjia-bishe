@@ -95,7 +95,15 @@
                     </view>
                 </view>
             </view>
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">联系方式</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <input class="weui-input" name="telephone" placeholder="请输入手机号" />
+                </view>
 
+            </view>
             <view class="weui-cells__tips">请确保信息真实，凤栖梧住房将保留法律追责权益</view>
             <checkbox-group bindchange="bindAgreeChange">
                 <label class="weui-agree" for="weuiAgree">
@@ -224,6 +232,7 @@
           console.log(e.detail.value)
           let houseInfo = e.detail.value
           houseInfo.ownerId = this.userInfo.userId
+          houseInfo.ownerName = this.userInfo.nickName
           this.house = houseInfo
           const result = await houses.addHouse(houseInfo)
           console.log(result)
@@ -291,7 +300,7 @@
         })
       },
       uploadedImage(e){
-        wepy.switchTab({
+        wepy.reLaunch({
           url: 'projects'
         })
       }

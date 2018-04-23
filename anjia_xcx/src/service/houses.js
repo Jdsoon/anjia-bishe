@@ -23,6 +23,25 @@ const houses = {
 
 
   },
+  async getAllTodoHouses() {
+    console.log('getAllTodoHouses')
+    try {
+      const housesList = await http({
+        url: api.houses.getAllTodoHouses.url,
+        method: api.houses.getAllTodoHouses.method
+      })
+
+      console.log(housesList)
+      return housesList
+
+      // await wepy.setStorageSync('projects', projects);
+
+    } catch (e) {
+      console.log('getAllTodoHouses')
+    }
+
+
+  },
   async addHouse(houseInfo) {
     console.log('addHouse')
     try {
@@ -30,6 +49,86 @@ const houses = {
         url: api.houses.addHouse.url,
         method: api.houses.addHouse.method,
         data: houseInfo
+      })
+
+      console.log(housesList)
+      return housesList
+
+      // await wepy.setStorageSync('projects', projects);
+
+    } catch (e) {
+      console.log('getAllprojects')
+    }
+
+
+  },
+  async getHousesById(id) {
+    console.log('getHousesById')
+    try {
+      const housesList = await http({
+        url: api.houses.getHousesById.url,
+        method: api.houses.getHousesById.method,
+        data: {'houseId': id}
+      })
+
+      console.log(housesList)
+      return housesList
+
+      // await wepy.setStorageSync('projects', projects);
+
+    } catch (e) {
+      console.log('getAllprojects')
+    }
+
+
+  },
+  async agreeHouses(id) {
+    console.log('agreeHouses')
+    try {
+      const housesList = await http({
+        url: api.houses.agreeHouses.url,
+        method: api.houses.agreeHouses.method,
+        data: {'houseId': id}
+      })
+
+      console.log(housesList)
+      return housesList
+
+      // await wepy.setStorageSync('projects', projects);
+
+    } catch (e) {
+      console.log('getAllprojects')
+    }
+
+
+  },
+  async getTodoHousesById(id) {
+    console.log('getHousesById')
+    try {
+      const housesList = await http({
+        url: api.houses.getTodoHousesById.url,
+        method: api.houses.getTodoHousesById.method,
+        data: {'houseId': id}
+      })
+
+      console.log(housesList)
+      return housesList
+
+      // await wepy.setStorageSync('projects', projects);
+
+    } catch (e) {
+      console.log('getAllprojects')
+    }
+
+
+  },
+  async delHouse(id) {
+    console.log('getHousesById')
+    try {
+      const housesList = await http({
+        url: api.houses.delHouse.url,
+        method: api.houses.delHouse.method,
+        data: {'houseId': id}
       })
 
       console.log(housesList)

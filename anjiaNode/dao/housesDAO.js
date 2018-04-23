@@ -17,6 +17,73 @@ exports.housesDao={
             })
         })
     },
+  getAllTodoHouses:function (callback) {
+        pool.getConnection(function (error,client) {
+            if(error){
+                return
+            }
+            client.query(housesSql.getAllTodoHouses,function (error,result) {
+                if(error){
+                    callback('e004');
+                    return;
+                }
+
+                callback(result);
+                client.release();
+            })
+        })
+    },
+  getHousesById:function (house,callback) {
+        pool.getConnection(function (error,client) {
+            if(error){
+                return
+            }
+            console.log(house,'id')
+            client.query(housesSql.getHousesById,[house],function (error,result) {
+                if(error){
+                    callback('e004');
+                    return;
+                }
+
+                callback(result);
+                client.release();
+            })
+        })
+    },
+  agreeHouses:function (house,callback) {
+        pool.getConnection(function (error,client) {
+            if(error){
+                return
+            }
+            console.log(house,'id')
+            client.query(housesSql.agreeHouses,[house],function (error,result) {
+                if(error){
+                    callback('e004');
+                    return;
+                }
+
+                callback(result);
+                client.release();
+            })
+        })
+    },
+  getTodoHousesById:function (house,callback) {
+        pool.getConnection(function (error,client) {
+            if(error){
+                return
+            }
+            console.log(house,'id')
+            client.query(housesSql.getTodoHousesById,[house],function (error,result) {
+                if(error){
+                    callback('e004');
+                    return;
+                }
+
+                callback(result);
+                client.release();
+            })
+        })
+    },
     //添加房源
     addHouse:function (house,callback) {
         pool.getConnection(function (error,client) {
