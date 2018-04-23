@@ -87,6 +87,15 @@
                 </view>
 
             </view>
+            <view class="weui-cells__title">房屋介绍</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd">
+                        <textarea class="weui-textarea" name="desc" placeholder="介绍一下你的小房子吧" style="height: 300rpx" />
+                    </view>
+                </view>
+            </view>
+
             <view class="weui-cells__tips">请确保信息真实，凤栖梧住房将保留法律追责权益</view>
             <checkbox-group bindchange="bindAgreeChange">
                 <label class="weui-agree" for="weuiAgree">

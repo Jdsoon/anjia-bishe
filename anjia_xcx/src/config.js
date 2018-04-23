@@ -27,6 +27,10 @@ const api = {
     getComments: {
       method: 'POST',
       url: '/houses/getArrInfo'
+    },
+    addComment: {
+      method: 'POST',
+      url: '/houses/addComment'
     }
   },
   getLoadingInfo:{

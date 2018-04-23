@@ -59,19 +59,20 @@ router.post('/wxlogin', function (req, res, next) {
             if(data.openid){
               userdao.checkUser(data.openid,function (result) {
                 if (result.length  > 0 ) {
+                  data.userId = result[0].id
                   res.json({ data: data })
                 }else{
                   let user = req.body.userInfo
                   user.openid = data.openid
                   console.log('user',user)
-                  userdao.addUser(user, function (result) {
-                    console.log(result)
-                    data.userId = result.insertId
+                  userdao.addUser(user, function (res) {
+                    console.log(res)
+                    data.userId = res.insertId
                     res.json({ data: data })
 
                   })
                 }
-                console.log(result.length)
+                console.log(result)
               })
             }
             //TODO: 生成一个唯一字符串sessionid作为键，将openid和session_key作为值，存入redis，超时时间设置为2小时

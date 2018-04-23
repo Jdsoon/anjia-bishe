@@ -24,11 +24,13 @@ exports.housesDao={
                 console.log("error");
                 return
             }
-            client.query(housesSql.addHouse,[house.houseName,house.housePrice,house.publishTime,house.houseTypeId,house.ownerId,house.area,house.areaName,house.address,house.floor],function (error,result) {
+            console.log(house)
+            client.query(housesSql.addHouse,[house.houseName,house.housePrice,house.publishTime,house.houseTypeId,house.ownerId,house.area,house.areaName,house.address,house.floor,house.desc,0],function (error,result) {
                 if(error){
-                    callback('e004');
+                    callback(error);
                     return;
                 }
+                console.log(result)
 
                 callback(result);
                 client.release();
@@ -160,6 +162,24 @@ exports.housesDao={
                 return
             }
             client.query(housesSql.askWatch,[arrInfo.userId,arrInfo.houseId,arrInfo.userId,arrInfo.houseId],function (error,result) {
+                if(error){
+                    callback('e004');
+                    return;
+                }
+
+                callback(result);
+                client.release();
+            })
+        })
+    },
+    //评论
+  addComment:function (arrInfo,callback) {
+        pool.getConnection(function (error,client) {
+            if(error){
+                console.log("error");
+                return
+            }
+            client.query(housesSql.addComment,[arrInfo.userId,arrInfo.houseId,arrInfo.comment],function (error,result) {
                 if(error){
                     callback('e004');
                     return;

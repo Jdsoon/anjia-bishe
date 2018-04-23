@@ -193,45 +193,29 @@
             <view class="weui-panel weui-panel_access">
                 <view class="weui-panel__hd">评论</view>
 
-                <view class="comment">
-                    <image class="comment-img" src="http://owhah4u2f.bkt.clouddn.com/images/user/2.jpg"/>
-                    <view class="comment-userName">
-                        大松子kkk
+                <block wx:for="{{comments}}" >
+                    <view class="comment">
+                        <image class="comment-img" src="http://owhah4u2f.bkt.clouddn.com/images/user/{{ item.userId }}.jpg"/>
+                        <view class="comment-userName">
+                            {{ item.userName }}
+                        </view>
+                        <view class="comment-content"
+                        >
+                            {{ item.comment }}
+                        </view>
                     </view>
-                    <view class="comment-content"
-                    >
-                        这个房子还不错是个的房间刘佳收到回复可见是你的空间白色的空间分布是绝代风华收到回复健康的话
-                    </view>
-                </view>
-                <view class="comment">
-                    <image class="comment-img" src="http://owhah4u2f.bkt.clouddn.com/images/user/2.jpg"/>
-                    <view class="comment-userName">
-                        大松子kkk
-                    </view>
-                    <view class="comment-content"
-                    >
-                        这个房子还不错是个好地方\n
-                        sdsdsdsds\n
-                        sdsdsds\nsdsds\n
-                    </view>
-                </view>
-                <view class="comment">
-                    <image class="comment-img" src="http://owhah4u2f.bkt.clouddn.com/images/user/2.jpg"/>
-                    <view class="comment-userName">
-                        大松子kkk
-                    </view>
-                    <view class="comment-content"
-                    >
-                        这个房子还不错是个好地方\n
-                        sdsdsdsds\n
-                        sdsdsds\nsdsds\n
-                    </view>
-                </view>
+                </block>
                 <view class="weui-panel__hd">我也要说</view>
-                <textarea class="weui-textarea" placeholder="快点这里输入对房东大大的看法吧～" style="height: 200rpx"/>
-                <view class="weui-btn-area">
-                    <button class="weui-btn"  bindtap="showTopTips">我写完啦</button>
-                </view>
+                <form bindsubmit="formSubmit">
+                    <textarea class="weui-textarea" name="comment" placeholder="快点这里输入对房东大大的看法吧～" style="height: 200rpx"/>
+                    <view class="weui-btn-area">
+                        <button class="weui-btn"  form-type="submit">我写完啦</button>
+                    </view>
+                </form>
+                <!--<textarea class="weui-textarea" placeholder="快点这里输入对房东大大的看法吧～" style="height: 200rpx"/>-->
+                <!--<view class="weui-btn-area">-->
+                    <!--<button class="weui-btn"  bindtap="showTopTips">我写完啦</button>-->
+                <!--</view>-->
 
 
 
@@ -272,7 +256,9 @@
             longitude: 113.324520,
             width: 50,
             height: 50
-      }]
+      }],
+      comments:[],
+      user:{}
 
 
     }
@@ -340,6 +326,18 @@
         //     }
         //   }
         // })
+      },
+      async formSubmit(e) {
+
+        let addInfo = {}
+        console.log(this.user)
+        addInfo.userId = this.user.userId
+
+        addInfo.houseId = this.house.houseId
+        addInfo.comment = e.detail.value.comment
+        console.log(addInfo)
+        const res = await houses.addComment(addInfo)
+        console.log('form发生了submit事件，返回', res)
       }
 
     }
@@ -354,10 +352,11 @@
     async onLoad(params, data){
       console.log(data.preload.house)
       this.house = data.preload.house
-      this.$apply();
-
+      this.user = wepy.getStorageSync('userInfo')
+      this.$apply()
       const comments = await houses.getCommentsById(this.house.houseId)
       console.log(comments);
+      this.comments = comments
       // console.log(params)
       // this.project = this.projects[options.projectId];
       let that = this;

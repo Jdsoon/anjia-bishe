@@ -21,10 +21,8 @@ import 'wepy-async-function'
 export default class extends wepy.app {
   config = {
     pages: [
-      'pages/mine',
-
-
         'pages/projects',
+      'pages/mine',
       'pages/todo',
       'pages/all',
       'pages/owner',
@@ -53,6 +51,13 @@ export default class extends wepy.app {
           text: '首页',
           iconPath: 'assets/images/home.png',
           selectedIconPath: 'assets/images/home_selected.png'
+        },
+        {
+          pagePath: 'pages/owner',
+          text: '发布',
+          iconPath: 'assets/images/action.png',
+          selectedIconPath: 'assets/images/action_selected.png'
+
         },
         {
           pagePath: 'pages/mine',

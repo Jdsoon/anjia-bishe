@@ -122,6 +122,26 @@ router.post('/askWatch', function(req, res, next) {
     }
 });
 
+//用户提出看房申请
+router.post('/addComment', function(req, res, next) {
+    var arrInfo = req.body;
+
+    console.log(arrInfo);
+    if(arrInfo){
+        console.log(arrInfo);
+        housesDao.addComment(arrInfo,function (result) {
+            console.log("addArrInfo");
+            if(result.affectedRows==1){
+                console.log(result.insertId);
+
+                res.json({"stateCode":39});
+            }else{
+                res.json({"stateCode":40});
+            }
+        })
+    }
+});
+
 //业主同意看房申请
 router.post('/agreeWatch', function(req, res, next) {
     var arrInfo = req.body;
@@ -167,7 +187,7 @@ router.post('/addHouse', function(req, res, next) {
             if(result.affectedRows==1){
                 res.json({"stateCode":11,"houseId":result.insertId});
             }else{
-                res.json({"stateCode":12});
+                res.json(result);
             }
         })
     }

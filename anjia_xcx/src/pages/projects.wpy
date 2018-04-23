@@ -67,6 +67,7 @@
   import wepy from 'wepy'
   import project from '../service/project'
   import houses from '../service/houses'
+  import loginMixin from '../mixins/login'
 
   export default class Projects extends wepy.page {
     config = {
@@ -76,7 +77,9 @@
     components = {
     }
 
-    mixins = []
+    mixins = [
+      loginMixin
+    ]
 
     data = {
       projects:[

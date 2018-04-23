@@ -1,6 +1,6 @@
 import wepy from 'wepy'
-
-export default class testMixin extends wepy.mixin {
+import user from '../service/user'
+export default class loginMixin extends wepy.mixin {
   data = {
     mixin: 'This is mixin data.'
   }
@@ -15,7 +15,11 @@ export default class testMixin extends wepy.mixin {
     console.log('mixin onShow')
   }
 
-  onLoad() {
+  async onLoad() {
     console.log('mixin onLoad')
+    await user.login()
+    const userInfo =   await wepy.getUserInfo()
+    this.userInfo = userInfo.userInfo
+    this.$apply()
   }
 }

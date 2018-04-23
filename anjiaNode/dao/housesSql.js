@@ -21,4 +21,7 @@ exports.sql={
     getArrInfoByArrId:"select * from arrangeinfo where arrangeId = ?",
     agreeWatch:"update arrange set status = 1 where arrangeId = ?",
 
+    addComment:"insert into arrange(userId,houseId,comment) values(?,?,?)",
+  addHouse:'insert into houses(houseName,housePrice,publishTime,houseTypeId,ownerId,area,areaName,address,floor,desc,now)values(?,?,?,?,?,?,?,?,?,?,?)',
+
 };

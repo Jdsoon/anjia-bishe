@@ -43,6 +43,26 @@ const houses = {
 
 
   },
+  async addComment(arrInfo) {
+    console.log('addComment')
+    try {
+      const res = await http({
+        url: api.houses.addComment.url,
+        method: api.houses.addComment.method,
+        data: arrInfo
+      })
+
+      console.log(res)
+      return res
+
+      // await wepy.setStorageSync('projects', projects);
+
+    } catch (e) {
+      console.log(e)
+    }
+
+
+  },
 
   async getProjectDetail(projectId) {
 
