@@ -89,7 +89,7 @@
 </style>
 <template>
     <view class="page">
-        <view class="page__hd">
+        <view class="page__hd" @tap="tapHead('1')">
             <swiper indicator-dots="true"
                     autoplay="true" interval="5000" duration="1000">
                 <repeat wx:for="{{ imgList  }}">
@@ -104,15 +104,17 @@
             <view class="weui-panel">
                 <view class="weui-panel__bd">
                     <view class="weui-media-box weui-media-box_text">
-                        <view class="weui-media-box__title weui-media-box__title_in-text">极简北欧装修小家</view>
-                        <view class="weui-media-box__desc">后现代风格，灰白灰为主调，色彩明快独立。临近阿里巴巴总部仅340m</view>
+                        <view class="weui-media-box__title weui-media-box__title_in-text">{{ house.houseName }}</view>
+                        <view class="weui-media-box__desc">{{ house.desc }}</view>
                         <view class="weui-media-box__info">
-                            <view class="weui-media-box__info__meta">姑苏 安家小区</view>
+                            <view class="weui-media-box__info__meta">{{ house.areaName }}</view>
                         </view>
                         <view class="weui-media-box__info">
-                            <view class="weui-media-box__info__meta">楼层</view>
-                            <view class="weui-media-box__info__meta">7楼</view>
-                            <view class="weui-media-box__info__meta">1室</view>
+                            <view class="weui-media-box__info__meta">{{ house.floor }}楼</view>
+                            <view class="weui-media-box__info__meta">{{ house.room }}室{{ house.livingroom ? house.livingroom : '0' }}厅{{ house.kitchen ? house.kitchen : '0' }}厨</view>
+                            <view class="weui-media-box__info__meta" wx:if="{{ house.kitchen }}">{{ house.kitchen }}厨</view>
+                            <view class="weui-media-box__info__meta" wx:if="{{house.bathroom}}">{{ house.bathroom }}卫</view>
+                            <view class="weui-media-box__info__meta">{{ house.aspect }}</view>
                         </view>
 
                     </view>
@@ -169,15 +171,15 @@
             </view>
 
 
-            <view class="weui-cells weui-cells_after-title" @tap="callOwner">
+            <view class="weui-cells weui-cells_after-title" @tap="callOwner()">
                 <view class="weui-cell">
                     <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
                         <image src="http://owhah4u2f.bkt.clouddn.com/images/user/2.jpg" style="width: 50px; height: 50px; display: block;border-radius: 50%"/>
                         <view class="weui-badge" style="position: absolute;top: -.4em;right: -.4em;background-color: #44aaff">房东</view>
                     </view>
                     <view class="weui-cell__bd">
-                        <view>Deson</view>
-                        <view style="font-size: 13px;color: #888888;">这是一个帅气的小伙子</view>
+                        <view>{{ house.ownerName }}</view>
+                        <view style="font-size: 13px;color: #888888;">{{ house.personInfo }}</view>
                     </view>
                 </view>
             </view>
@@ -185,7 +187,7 @@
                 <view class="weui-panel__hd">地理位置</view>
 
                 <view class="weui-panel__bd">
-                    <map id="map" @tap="tapMap()" longitude="113.324520" latitude="23.099994" scale="14"  markers="{{markers}}" style="width: 100%; height: 300px;"></map>
+                    <map id="map" @tap="tapMap" longitude="113.324520" latitude="23.099994" scale="14"  markers="{{markers}}" style="width: 100%; height: 300px;"></map>
                 </view>
             </view>
             <view class="weui-panel weui-panel_access">
@@ -250,6 +252,7 @@
 
 <script>
   import wepy from 'wepy'
+  import houses from '../service/houses'
 
   export default class HouseDetail extends wepy.page {
     config = {
@@ -279,80 +282,83 @@
     }
 
     methods = {
-      toInteractDefault(){
-        wepy.navigateTo({
-          url: '/pages/interact'
-        });
+        tapHead(id,e){
+            console.log('sss'+id)
+        },
+      tapMap(e){
+        console.log(e)
+        wx.getLocation({
+          type: 'gcj02', //返回可以用于wx.openLocation的经纬度
+          success: function(res) {
+            var latitude = res.latitude
+            var longitude = res.longitude
+            wx.openLocation({
+              latitude: latitude,
+              longitude: longitude,
+              scale: 28
+            })
+          }
+        })
       },
-        tapMap(){
-            wx.getLocation({
-                type: 'gcj02', //返回可以用于wx.openLocation的经纬度
-                success: function(res) {
-                    var latitude = res.latitude
-                    var longitude = res.longitude
-                    wx.openLocation({
-                        latitude: latitude,
-                        longitude: longitude,
-                        scale: 28
+
+      callOwner(e){
+        wx.showActionSheet({
+            itemList: ['联系房东大大', '收藏房东大大联系方式'],
+            success: function(res) {
+                console.log(res.tapIndex)
+                if (res.tapIndex == 0){
+                    wx.makePhoneCall({
+                        phoneNumber: '18017274727' //仅为示例，并非真实的电话号码
+                    })
+                }else if(res.tapIndex == 1){
+                    wx.addPhoneContact({
+                        nickName: '房东大大',
+                        lastName: '房东',
+                        firstName: 'dada',
+                        mobilePhoneNumber: '18017274727',
+                        addressCity: 'huangpiu'
                     })
                 }
-            })
-        },
-
-        callOwner(){
-            wx.showActionSheet({
-                itemList: ['联系房东大大', '收藏房东大大联系方式'],
-                success: function(res) {
-                    console.log(res.tapIndex)
-                    if (res.tapIndex == 0){
-                        wx.makePhoneCall({
-                            phoneNumber: '18017274727' //仅为示例，并非真实的电话号码
-                        })
-                    }else if(res.tapIndex == 1){
-                        wx.addPhoneContact({
-                            nickName: '房东大大',
-                            lastName: '房东',
-                            firstName: 'dada',
-                            mobilePhoneNumber: '18017274727',
-                            addressCity: 'huangpiu'
-                        })
-                    }
-                },
-                fail: function(res) {
-                    console.log(res.errMsg)
-                }
-            })
-            // wx.showModal({
-            //     title: '提示',
-            //     content: '是否联系房东大大？',
-            //     showCancel: "true",
-            //     cancelText: "取消",
-            //     cancelColor: "#333",
-            //     confirmText: "确认",
-            //     confirmColor: "#405f80",
-            //     success:function(res){
-            //         if(res.confirm){
-            //             wx.makePhoneCall({
-            //                 phoneNumber: '18017274727' //仅为示例，并非真实的电话号码
-            //             })
-            //         }
-            //     }
-            // })
-        }
+            },
+            fail: function(res) {
+                console.log(res.errMsg)
+            }
+        })
+        // wx.showModal({
+        //   title: '提示',
+        //   content: '是否联系房东大大？',
+        //   showCancel: "true",
+        //   cancelText: "取消",
+        //   cancelColor: "#333",
+        //   confirmText: "确认",
+        //   confirmColor: "#405f80",
+        //   success:function(res){
+        //     if(res.confirm){
+        //       wx.makePhoneCall({
+        //         phoneNumber: '18017274727' //仅为示例，并非真实的电话号码
+        //       })
+        //     }
+        //   }
+        // })
+      }
 
     }
+
+
 
     events = {
 
     }
 
 
-    onLoad(params, data) {
+    async onLoad(params, data){
       console.log(data.preload.house)
       this.house = data.preload.house
       this.$apply();
 
-        // console.log(params)
+      const comments = await houses.getCommentsById(this.house.houseId)
+      console.log(comments);
+      // console.log(params)
       // this.project = this.projects[options.projectId];
       let that = this;
       wepy.setNavigationBarTitle({
@@ -365,7 +371,7 @@
 
           return {
               title: '看看我挑选的这个房子怎么样？',
-              path: '/pages/houseDetail,
+              path: '/pages/houseDetail',
               success(res) {
                   wx.getShareInfo({
                       // shareTicket: res.shareTickets[0],
@@ -379,5 +385,6 @@
                   })
               }
           }
+  }
   }
 </script>

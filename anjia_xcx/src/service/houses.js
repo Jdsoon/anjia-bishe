@@ -54,6 +54,22 @@ const houses = {
     } catch (e) {
         console.log(e)
     }
+  },
+
+  async getCommentsById(id) {
+    let house = {}
+    house.houseId = id
+    try {
+      const res = await http({
+        url: api.houses.getComments.url,
+        method: api.houses.getComments.method,
+        data: house
+      })
+      console.log(res)
+      return res
+    } catch (e) {
+        console.log(e)
+    }
   }
 
 }
