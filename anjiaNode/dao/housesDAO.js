@@ -7,6 +7,7 @@ exports.housesDao={
                 return
             }
             client.query(housesSql.getAllHouses,function (error,result) {
+                console.log(error)
                 if(error){
                     callback('e004');
                     return;
